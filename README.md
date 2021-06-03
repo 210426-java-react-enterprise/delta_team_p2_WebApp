@@ -1,4 +1,5 @@
 # delta_team_p2_WebApp
+The backend component of Project 2
 
 With Project 1 out of the way, it's time to work as a group to build your first full-stack application! No holding back on this one, every bit of abstraction we've covered is at your disposal!
 
