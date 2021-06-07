@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  pre_build:
+    commands:
+     # - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar ~/.m2/repository/eteam/eorm/1.0/eorm-1.0.jar
+     # - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar /root/ec2-user/eorm-1.0.jar
+     # - mvn install:install-file -Dfile=/root/ec2-user/eorm-1.0.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0 -Dpackaging=jar
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package
+  post_build:
+    commands:
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      - echo Build completed on `date`
+      - ls -al
+      - mkdir artifact
+      - unzip target/webapp-0.0.2.jar -d artifact/
+      - ls -al /artifact
+      #- mv artifact/**/* WEB-INF
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--/POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+artifacts:
+  #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
+  files:
+    - WEB-INF/**/*
+  name: artifact
+#    - p1-webapp-0.9.war
+#    - .ebextensions/**/*
