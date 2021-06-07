@@ -25,8 +25,12 @@ public class AuthController {
         json = new ObjectMapper();
     }
 
-    /*
-        Registration of a new User
+    /**
+     *  Registration of a new User into the database
+     * @param newUser - The user that you want to register into the database
+     * @param response - HTTP response object
+     * @return json formatted string with query results
+     * @throws JsonProcessingException
      */
     @PostMapping(value = "/auth", consumes = "application/json", produces = "application/json")
     public String registerUser(@RequestBody MovieUser newUser, HttpServletResponse response) throws JsonProcessingException {
