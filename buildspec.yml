@@ -18,10 +18,10 @@ phases:
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - echo Build completed on `date`
       - ls -al
-      - ls -al /target
+      - ls -al target/
       - mkdir artifact
       - unzip target/webapp-0.0.2.jar -d artifact/
-      - ls -al /artifact
+      - ls -al artifact/
       #- mv artifact/**/* WEB-INF
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--/POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 artifacts:
