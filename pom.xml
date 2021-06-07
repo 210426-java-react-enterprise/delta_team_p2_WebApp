@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.revature</groupId>
 	<artifactId>WebApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>WebApp</name>
 	<packaging>jar</packaging>
 	<description>Project 2 Webapp - back end</description>
@@ -31,6 +31,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-war-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql
 		Dependency for postgres connection driver	-->
 		<dependency>
@@ -52,8 +59,8 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.5.0</version>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

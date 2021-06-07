@@ -6,7 +6,7 @@ import com.revature.WebApp.entities.PrototypeEntity;
 import com.revature.WebApp.repositories.PrototypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.ui.Model;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +21,12 @@ import java.util.Optional;
 @RestController
 public class PrototypeController {
 
-    private PrototypeRepository testRepo;
-    private ObjectMapper json;
+    private final PrototypeRepository protoRepo;
+    private final ObjectMapper json;
 
     @Autowired
-    public PrototypeController(PrototypeRepository testRepo) {
-        this.testRepo = testRepo;
+    public PrototypeController(PrototypeRepository protoRepo) {
+        this.protoRepo = protoRepo;
         json = new ObjectMapper();
     }
 
@@ -34,11 +34,11 @@ public class PrototypeController {
      * This GET servlet forms a list of all prototype entities in the database and returns them in a json string.
      * @param response - HTTP response object
      * @return json formatted string with query results
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException thrown if jackson can't parse JSON
      */
     @GetMapping(value="/getprototypeentities", produces = "application/json")
-    public String listAllTestEntities(HttpServletResponse response) throws JsonProcessingException {
-        ArrayList<PrototypeEntity> prototypeEntityList = (ArrayList<PrototypeEntity>) testRepo.findAll();
+    public String listAllPrototypeEntities(HttpServletResponse response) throws JsonProcessingException {
+        ArrayList<PrototypeEntity> prototypeEntityList = (ArrayList<PrototypeEntity>) protoRepo.findAll();
         response.setStatus(200);
         return json.writeValueAsString(prototypeEntityList);
     }
@@ -48,36 +48,54 @@ public class PrototypeController {
      * @param prototypeEntity - autopopulated from request body
      * @param response - HTTP response object
      * @return - json formatted string of newly created object
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException thrown if jackson can't parse JSON
      */
     @PostMapping(value = "/createprototypeentity", consumes = "application/json", produces = "application/json")
-    public String createNewTestEntity(@RequestBody PrototypeEntity prototypeEntity, HttpServletResponse response) throws JsonProcessingException {
-        testRepo.save(prototypeEntity);
+    public String createNewPrototypeEntity(@RequestBody PrototypeEntity prototypeEntity, HttpServletResponse response) throws JsonProcessingException {
+        protoRepo.save(prototypeEntity);
         response.setStatus(201);
         return json.writeValueAsString(prototypeEntity);
     }
 
     /**
      * This PUT mapping will load an entity from database based on Id, and will update and save the other fields
-     * @param update - autopopulated from request body
+     * @param updateEntity - autopopulated from request body
      * @param response - HTTP response object
      * @return - json formatted string of newly pdated object
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException thrown if jackson can't parse JSON
      */
     @PutMapping(value = "/updateprototypeentity", consumes = "application/json", produces = "application/json")
-    public String updateEntity(@RequestBody PrototypeEntity update, HttpServletResponse response) throws JsonProcessingException {
-        Optional<PrototypeEntity> testEntityOptional = testRepo.findById(update.getId());
-        if(testEntityOptional.isPresent()) {
-            testEntityOptional.get().setString(update.getString());
-            testEntityOptional.get().setDbl(update.getDbl());
-            testEntityOptional.get().setBool(update.getBool());
-            testRepo.save(testEntityOptional.get());
+    public String updatePrototypeEntity(@RequestBody PrototypeEntity updateEntity, HttpServletResponse response) throws JsonProcessingException {
+        Optional<PrototypeEntity> prototypeEntityOptional = protoRepo.findById(updateEntity.getId());
+        if(prototypeEntityOptional.isPresent()) {
+            prototypeEntityOptional.get().setString(updateEntity.getString());
+            prototypeEntityOptional.get().setDbl(updateEntity.getDbl());
+            prototypeEntityOptional.get().setBool(updateEntity.getBool());
+            protoRepo.save(prototypeEntityOptional.get());
             response.setStatus(200);
-            return json.writeValueAsString(testEntityOptional.get());
+            return json.writeValueAsString(prototypeEntityOptional.get());
         } else {
             response.setStatus(404);
-            return "Object with Id = " + update.getId() + " not found.";
+            return "Object with Id = " + updateEntity.getId() + " not found.";
         }
+    }
 
+    /**
+     * This DELETE mapping will delete an entity from the database after grabbing the row by ID
+     * @param deleteEntity - autopopulated from request body
+     * @param response - plain text and status code
+     * @return - plain text string corresponding to status code
+     */
+    @DeleteMapping(value = "/deleteprototypeentity", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String deletePrototypeEntity(@RequestBody PrototypeEntity deleteEntity, HttpServletResponse response) {
+        Optional<PrototypeEntity> prototypeEntityOptional = protoRepo.findById(deleteEntity.getId());
+        if(prototypeEntityOptional.isPresent()) {
+            protoRepo.delete(prototypeEntityOptional.get());
+            response.setStatus(200);
+            return "Deleted.";
+        } else {
+            response.setStatus(404);
+            return "Resource not found.";
+        }
     }
 }
