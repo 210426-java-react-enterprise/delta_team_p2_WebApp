@@ -48,8 +48,7 @@ public class AuthController {
      * @throws JsonProcessingException
      */
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public String login(@RequestBody MovieUser user, HttpServletResponse response) throws JsonProcessingException {
-        //Check credential in database
+    public String login(@RequestBody MovieUser user /*TODO: Change to username password DTO */, HttpServletResponse response) throws JsonProcessingException {        //Check credential in database
         MovieUser foundUser = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword()));
         if(foundUserOptional.isPresent()){
