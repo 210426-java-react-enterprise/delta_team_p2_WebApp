@@ -29,4 +29,5 @@ artifacts:
   files:
     #- WEB-INF/**/*
     - target/**/*
+    -
   name: artifact
