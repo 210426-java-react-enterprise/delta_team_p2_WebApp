@@ -61,29 +61,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.5.0</version>
 			</plugin>
-
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-war-plugin</artifactId>-->
-<!--				<version>3.3.1</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>default-war</id>-->
-<!--						<phase>none</phase>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>war-exploded</id>-->
-<!--						<configuration>-->
-<!--							<webappDirectory>target/deploy</webappDirectory>-->
-<!--							<archiveClasses>true</archiveClasses>-->
-<!--						</configuration>-->
-<!--						<phase>prepare-package</phase>-->
-<!--						<goals>-->
-<!--							<goal>exploded</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>
