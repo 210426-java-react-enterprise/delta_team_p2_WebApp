@@ -49,7 +49,7 @@ public class AuthController {
      * @throws JsonProcessingException
      */
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public String login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws JsonProcessingException {        
+    public String login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws JsonProcessingException {
         MovieUser foundUser = userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
         Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword()));
         if(foundUserOptional.isPresent()){
