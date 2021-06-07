@@ -12,7 +12,8 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mvn package
+      #- mvn package
+      - mvn prepare-package war:exploded
   post_build:
     commands:
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -23,11 +24,10 @@ phases:
       #- unzip target/webapp-0.0.2.jar -d artifact/
       #- ls -al artifact/
       #- mv artifact/**/* WEB-INF
+      - mv target/deploy ./
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--/POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
   files:
-    #- WEB-INF/**/*
-    - target/**/*
-    -
-  name: artifact
+    - deploy/**/*
+#  name: artifact
