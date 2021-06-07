@@ -2,6 +2,7 @@ package com.revature.WebApp.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.WebApp.DTO.LoginDTO;
 import com.revature.WebApp.entities.MovieUser;
 import com.revature.WebApp.entities.PrototypeEntity;
 import com.revature.WebApp.repositories.MovieUserRepository;
@@ -42,15 +43,15 @@ public class AuthController {
 
     /**
      * Uses inputted credentials to look for a specified user
-     * @param user - The user with the credentials to check
+     * @param loginDTO - A DTO representing the username and password that will be used to find a user in the database
      * @param response - HTTP response object
      * @return - json formatted string with updated object (if found)
      * @throws JsonProcessingException
      */
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public String login(@RequestBody MovieUser user /*TODO: Change to username password DTO */, HttpServletResponse response) throws JsonProcessingException {        //Check credential in database
-        MovieUser foundUser = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-        Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword()));
+    public String login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws JsonProcessingException {        
+        MovieUser foundUser = userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
+        Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword()));
         if(foundUserOptional.isPresent()){
 
             //Create JWT?
