@@ -19,15 +19,14 @@ phases:
       - echo Build completed on `date`
       - ls -al
       - ls -al target/
-      - mkdir artifact
-      - unzip target/webapp-0.0.2.jar -d artifact/
-      - ls -al artifact/
+      #- mkdir artifact
+      #- unzip target/webapp-0.0.2.jar -d artifact/
+      #- ls -al artifact/
       #- mv artifact/**/* WEB-INF
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--/POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
   files:
-    - WEB-INF/**/*
+    #- WEB-INF/**/*
+    - target/**/*
   name: artifact
-#    - p1-webapp-0.9.war
-#    - .ebextensions/**/*
