@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @RestController
 public class AuthController {
@@ -29,7 +30,7 @@ public class AuthController {
      *  Registration of a new User into the database
      * @param newUser - The user that you want to register into the database
      * @param response - HTTP response object
-     * @return json formatted string with query results
+     * @return - json formatted string with query results
      * @throws JsonProcessingException
      */
     @PostMapping(value = "/auth", consumes = "application/json", produces = "application/json")
@@ -38,4 +39,32 @@ public class AuthController {
         response.setStatus(201);
         return json.writeValueAsString(newUser);
     }
+
+    /**
+     * Uses inputted credentials to look for a specified user
+     * @param user - The user with the credentials to check
+     * @param response - HTTP response object
+     * @return - json formatted string with updated object (if found)
+     * @throws JsonProcessingException
+     */
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    public String login(@RequestBody MovieUser user, HttpServletResponse response) throws JsonProcessingException {
+        //Check credential in database
+        MovieUser foundUser = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword()));
+        if(foundUserOptional.isPresent()){
+
+            //Create JWT?
+
+            response.setStatus(200);
+            return json.writeValueAsString(foundUserOptional.get());
+        } else {
+            response.setStatus(404);
+            return "Invalid username and/or password!";
+        }
+
+
+
+    }
+
 }
