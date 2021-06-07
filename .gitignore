@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-# application.properties contains database user password
 # see delta-team slack for details.
 *.properties
+
+# Node Modules
+*node_modules/*
