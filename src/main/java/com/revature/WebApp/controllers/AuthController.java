@@ -1,22 +1,27 @@
 package com.revature.WebApp.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.WebApp.entities.MovieUser;
 import com.revature.WebApp.entities.PrototypeEntity;
+import com.revature.WebApp.repositories.MovieUserRepository;
 import com.revature.WebApp.repositories.PrototypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class AuthController {
 
-    private PrototypeRepository testRepo;
+    private MovieUserRepository userRepo;
     private ObjectMapper json;
 
     @Autowired
-    public  AuthController(PrototypeRepository testRepo){
-        this.testRepo = testRepo;
+    public  AuthController(MovieUserRepository userRepo){
+        this.userRepo = userRepo;
         json = new ObjectMapper();
     }
 
@@ -24,7 +29,9 @@ public class AuthController {
         Registration of a new User
      */
     @PostMapping(value = "/auth", consumes = "application/json", produces = "application/json")
-    public String registerUser(@RequestBody PrototypeEntity){
-
+    public String registerUser(@RequestBody MovieUser newUser, HttpServletResponse response) throws JsonProcessingException {
+        userRepo.save(newUser);
+        response.setStatus(201);
+        return json.writeValueAsString(newUser);
     }
 }
