@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.revature</groupId>
 	<artifactId>WebApp</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>WebApp</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<description>Project 2 Webapp - back end</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -62,28 +62,28 @@
 				<version>2.5.0</version>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.3.1</version>
-				<executions>
-					<execution>
-						<id>default-war</id>
-						<phase>none</phase>
-					</execution>
-					<execution>
-						<id>war-exploded</id>
-						<configuration>
-							<webappDirectory>target/deploy</webappDirectory>
-							<archiveClasses>true</archiveClasses>
-						</configuration>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>exploded</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-war-plugin</artifactId>-->
+<!--				<version>3.3.1</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>default-war</id>-->
+<!--						<phase>none</phase>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>war-exploded</id>-->
+<!--						<configuration>-->
+<!--							<webappDirectory>target/deploy</webappDirectory>-->
+<!--							<archiveClasses>true</archiveClasses>-->
+<!--						</configuration>-->
+<!--						<phase>prepare-package</phase>-->
+<!--						<goals>-->
+<!--							<goal>exploded</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>
