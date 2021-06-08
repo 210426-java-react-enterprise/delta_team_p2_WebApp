@@ -6,6 +6,29 @@
 	},
 	"item": [
 		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.221.145.42:8080/webapp/ping",
+					"protocol": "http",
+					"host": [
+						"18",
+						"221",
+						"145",
+						"42"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get All Prototype Entities",
 			"request": {
 				"method": "GET",

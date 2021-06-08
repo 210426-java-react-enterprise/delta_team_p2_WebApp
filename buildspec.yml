@@ -6,6 +6,12 @@ phases:
       java: corretto8
   pre_build:
     commands:
+      - ls -al
+      - aws s3 cp s3://codebuild-p2-resources/application.properties ./src/main/resources/
+      - ls -al
+      - ls -al ./src
+      - ls -al ./src/main/
+      - ls -al ./src/main/resources
   build:
     commands:
       - echo Build started on `date`
