@@ -35,7 +35,6 @@ public class OMDbAPI {
     public OMDbSearchResultsDTO searchByTitle(String title) throws IOException {
 
         String searchString = URL + "?s=" + title + "&page=1&r=json";
-        //System.out.println("URL = " + URL);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(searchString)
@@ -51,6 +50,7 @@ public class OMDbAPI {
         ObjectMapper mapper = new ObjectMapper();
         OMDbSearchResultsDTO searchResults = mapper.readValue(jsonResults, OMDbSearchResultsDTO.class);
 
+        //System.out.println(jsonResults);
 
         return searchResults;
     }

@@ -21,15 +21,15 @@ public class OMDbSearchController {
     }
 
     @GetMapping(value="/omdb/{movieTitle}", produces = "application/json")
-    public String listAllPrototypeEntities(@PathVariable String movieTitle, HttpServletResponse response) throws IOException {
+    public String titleSearch(@PathVariable String movieTitle, HttpServletResponse response) throws IOException {
         OMDbSearchResultsDTO searchResultObject = OMDbAPI.getAPIAccess().searchByTitle(movieTitle);
 
-        if(Integer.parseInt(searchResultObject.getTotalResults()) > 0) {
-            response.setStatus(200);
-            return json.writeValueAsString(searchResultObject);
+        if(searchResultObject.getResponse().equals("False")) {
+            response.setStatus(404);
+            return "Title not found in Internet Movie Database.";
         }
+        response.setStatus(200);
+        return json.writeValueAsString(searchResultObject);
 
-        response.setStatus(404);
-        return "Title not found in Internet Movie Database.";
     }
 }
