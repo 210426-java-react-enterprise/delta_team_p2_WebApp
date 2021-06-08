@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.revature</groupId>
 	<artifactId>WebApp</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.5</version>
 	<name>WebApp</name>
 	<packaging>jar</packaging>
 	<description>Project 2 Webapp - back end</description>
