@@ -6,25 +6,15 @@ phases:
       java: corretto8
   pre_build:
     commands:
-      - ls -al
       - aws s3 cp s3://codebuild-p2-resources/application.properties ./src/main/resources/
-      - ls -al
-      - ls -al ./src
-      - ls -al ./src/main/
-      - ls -al ./src/main/resources
   build:
     commands:
       - echo Build started on `date`
       - mvn package
   post_build:
     commands:
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - echo Build completed on `date`
-      - ls -al
-      - ls -al target/
       - mv target/*.jar ./
-      - ls -al
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!__--/POST BUILD--__!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
   files:
