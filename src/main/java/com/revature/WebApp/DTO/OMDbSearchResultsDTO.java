@@ -6,21 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
-public class MDbSearchResultsDTO {
-    private List<MDbElementDTO> search;
+public class OMDbSearchResultsDTO {
+    private List<OMDbElementDTO> search;
     private String totalResults;
     private String response;
 
 
-    public MDbSearchResultsDTO() {
+    public OMDbSearchResultsDTO() {
 
     }
 
-    public List<MDbElementDTO> getSearch() {
+    public List<OMDbElementDTO> getSearch() {
         return search;
     }
 
-    public void setSearch(List<MDbElementDTO> search) {
+    public void setSearch(List<OMDbElementDTO> search) {
         this.search = search;
     }
 
@@ -42,7 +42,7 @@ public class MDbSearchResultsDTO {
 
     @Override
     public String toString() {
-        return "MDbSearchResultsDTO{" +
+        return "OMDbSearchResultsDTO{" +
                 "search=" + search.toString() +
                 ", totalResults='" + totalResults + '\'' +
                 ", response='" + response + '\'' +

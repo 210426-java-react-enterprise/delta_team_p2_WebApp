@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
-public class MDbElementDTO {
+public class OMDbElementDTO {
     private String title;
     private String year;
     private String imdbID;
@@ -12,11 +12,11 @@ public class MDbElementDTO {
     private String poster;
 
 
-    public MDbElementDTO() {
+    public OMDbElementDTO() {
 
     }
 
-    public MDbElementDTO(String title, String year, String imdb, String type, String poster) {
+    public OMDbElementDTO(String title, String year, String imdb, String type, String poster) {
         this.title = title;
         this.year = year;
         this.imdbID = imdb;
@@ -68,7 +68,7 @@ public class MDbElementDTO {
 
     @Override
     public String toString() {
-        return "MDbElementDTO{" +
+        return "OMDbElementDTO{" +
                 "title='" + title + '\'' +
                 ", year='" + year + '\'' +
                 ", imdbID='" + imdbID + '\'' +
