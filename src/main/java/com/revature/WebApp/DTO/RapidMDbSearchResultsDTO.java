@@ -8,22 +8,22 @@ import java.util.List;
 
 @JsonIgnoreProperties
 @JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
-public class OMDbSearchResultsDTO {
-    private List<OMDbElementDTO> search;
+public class RapidMDbSearchResultsDTO {
+    private List<RapidMDBElementDTO> search;
     private String totalResults;
     private String response;
     private String error;
 
 
-    public OMDbSearchResultsDTO() {
+    public RapidMDbSearchResultsDTO() {
 
     }
 
-    public List<OMDbElementDTO> getSearch() {
+    public List<RapidMDBElementDTO> getSearch() {
         return search;
     }
 
-    public void setSearch(List<OMDbElementDTO> search) {
+    public void setSearch(List<RapidMDBElementDTO> search) {
         this.search = search;
     }
 
@@ -53,7 +53,7 @@ public class OMDbSearchResultsDTO {
 
     @Override
     public String toString() {
-        return "OMDbSearchResultsDTO{" +
+        return "RapidMDbSearchResultsDTO{" +
                 "search=" + search.toString() +
                 ", totalResults='" + totalResults + '\'' +
                 ", response='" + response + '\'' +
