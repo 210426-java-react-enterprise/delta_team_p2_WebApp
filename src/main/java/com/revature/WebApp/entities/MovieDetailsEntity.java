@@ -1,43 +1,82 @@
-package com.revature.WebApp.DTO;
+package com.revature.WebApp.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import java.util.List;
+import com.revature.WebApp.DTO.OMDbSearchResultsDTO;
 
-@JsonIgnoreProperties
-@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
-public class OMDbSearchResultsDTO {
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="movie_cache")
+public class MovieDetailsEntity {
+    @Id
+    private String imdbId;
+
     private String title;
-    private String Year;
+    private Integer Year;//???
     private String rated;
     private String released;
     private String runtime;
     private String genre;
     private String director;
+
+    @Column(length=1000)
     private String writer;
+
+    @Column(length=1000)
     private String actors;
+
+    @Column(length=1000)
     private String plot;
     private String language;
     private String country;
     private String awards;
     private String poster;
-    private List<OMDbRatingsElementDTO> ratings;
     private String metascore;
     private String imdbRating;
     private String imdbVotes;
-    private String imdbID;
     private String type;
     private String dvd;
     private String boxOffice;
     private String production;
     private String website;
-    private String response;
-    private String error;
 
-    public OMDbSearchResultsDTO() {
+    public MovieDetailsEntity() {
 
+    }
+
+    public MovieDetailsEntity(OMDbSearchResultsDTO searchResults) {
+        this.imdbId = searchResults.getImdbID();
+        this.title = searchResults.getTitle();
+        this.Year = Integer.parseInt(searchResults.getYear());
+        this.rated = searchResults.getRated();
+        this.released = searchResults.getReleased();
+        this.runtime = searchResults.getRuntime();
+        this.genre = searchResults.getGenre();
+        this.director = searchResults.getDirector();
+        this.writer = searchResults.getWriter();
+        this.actors = searchResults.getActors();
+        this.plot = searchResults.getPlot();
+        this.language = searchResults.getLanguage();
+        this.country = searchResults.getCountry();
+        this.awards = searchResults.getAwards();
+        this.poster = searchResults.getPoster();
+        this.metascore = searchResults.getMetascore();
+        this.imdbRating = searchResults.getImdbRating();
+        this.imdbVotes = searchResults.getImdbVotes();
+        this.type = searchResults.getType();
+        this.dvd = searchResults.getDvd();
+        this.boxOffice = searchResults.getBoxOffice();
+        this.production = searchResults.getProduction();
+        this.website = searchResults.getWebsite();
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public String getTitle() {
@@ -48,11 +87,19 @@ public class OMDbSearchResultsDTO {
         this.title = title;
     }
 
-    public String getYear() {
+//    public String getYear() {
+//        return Year;
+//    }
+//
+//    public void setYear(String year) {
+//        Year = year;
+//    }
+
+    public Integer getYear() {
         return Year;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         Year = year;
     }
 
@@ -152,14 +199,6 @@ public class OMDbSearchResultsDTO {
         this.poster = poster;
     }
 
-    public List<OMDbRatingsElementDTO> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<OMDbRatingsElementDTO> ratings) {
-        this.ratings = ratings;
-    }
-
     public String getMetascore() {
         return metascore;
     }
@@ -182,14 +221,6 @@ public class OMDbSearchResultsDTO {
 
     public void setImdbVotes(String imdbVotes) {
         this.imdbVotes = imdbVotes;
-    }
-
-    public String getImdbID() {
-        return imdbID;
-    }
-
-    public void setImdbID(String imdbID) {
-        this.imdbID = imdbID;
     }
 
     public String getType() {
@@ -231,21 +262,4 @@ public class OMDbSearchResultsDTO {
     public void setWebsite(String website) {
         this.website = website;
     }
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
 }
