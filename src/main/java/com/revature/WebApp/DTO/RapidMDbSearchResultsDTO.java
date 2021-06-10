@@ -1,13 +1,13 @@
 package com.revature.WebApp.DTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.List;
 
 @JsonIgnoreProperties
-@JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class RapidMDbSearchResultsDTO {
     private List<RapidMDBElementDTO> search;
     private String totalResults;

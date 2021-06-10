@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PrototypeRepository extends JpaRepository<PrototypeEntity, Integer> {
-    //manually created queries defined here?
 }

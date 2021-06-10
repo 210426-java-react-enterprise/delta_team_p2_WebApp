@@ -51,7 +51,7 @@ public class AuthController {
      */
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
     public String login(@Valid @RequestBody LoginDTO loginDTO, HttpServletResponse response) throws JsonProcessingException {
-        UserEntity foundUser = userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
+        //UserEntity foundUser = userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
         Optional<UserEntity> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword()));
         if(foundUserOptional.isPresent()){
 

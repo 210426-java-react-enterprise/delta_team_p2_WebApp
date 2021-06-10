@@ -23,9 +23,9 @@ public class UserEntity {
     private String password;
 
     @Email
-    @Pattern(regexp = "^([0-9a-zA-Z.]+@[0-9a-zA-Z]+[.][a-zA-Z]+){1,255}$", message = "need a valid email")
+    //@Pattern(regexp = "^([0-9a-zA-Z.]+@[0-9a-zA-Z]+[.][a-zA-Z]+){1,255}$", message = "need a valid email")
     @Column(nullable = false, unique = true)
-    @NotBlank(message="email can not be blank")
+    //@NotBlank(message="email can not be blank")
     private String email;
 
     @Column(name = "first_name", nullable = false)

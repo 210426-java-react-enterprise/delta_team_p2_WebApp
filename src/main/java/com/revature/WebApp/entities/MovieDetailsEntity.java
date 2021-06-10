@@ -1,6 +1,8 @@
 package com.revature.WebApp.entities;
 
 
+import com.revature.WebApp.DTO.OMDbSearchResultsDTO;
+
 import javax.persistence.*;
 
 
@@ -11,14 +13,20 @@ public class MovieDetailsEntity {
     private String imdbId;
 
     private String title;
-    private String Year;
+    private Integer Year;//???
     private String rated;
     private String released;
     private String runtime;
     private String genre;
     private String director;
+
+    @Column(length=1000)
     private String writer;
+
+    @Column(length=1000)
     private String actors;
+
+    @Column(length=1000)
     private String plot;
     private String language;
     private String country;
@@ -37,6 +45,32 @@ public class MovieDetailsEntity {
 
     }
 
+    public MovieDetailsEntity(OMDbSearchResultsDTO searchResults) {
+        this.imdbId = searchResults.getImdbID();
+        this.title = searchResults.getTitle();
+        this.Year = Integer.parseInt(searchResults.getYear());
+        this.rated = searchResults.getRated();
+        this.released = searchResults.getReleased();
+        this.runtime = searchResults.getRuntime();
+        this.genre = searchResults.getGenre();
+        this.director = searchResults.getDirector();
+        this.writer = searchResults.getWriter();
+        this.actors = searchResults.getActors();
+        this.plot = searchResults.getPlot();
+        this.language = searchResults.getLanguage();
+        this.country = searchResults.getCountry();
+        this.awards = searchResults.getAwards();
+        this.poster = searchResults.getPoster();
+        this.metascore = searchResults.getMetascore();
+        this.imdbRating = searchResults.getImdbRating();
+        this.imdbVotes = searchResults.getImdbVotes();
+        this.type = searchResults.getType();
+        this.dvd = searchResults.getDvd();
+        this.boxOffice = searchResults.getBoxOffice();
+        this.production = searchResults.getProduction();
+        this.website = searchResults.getWebsite();
+    }
+
     public String getImdbId() {
         return imdbId;
     }
@@ -53,11 +87,19 @@ public class MovieDetailsEntity {
         this.title = title;
     }
 
-    public String getYear() {
+//    public String getYear() {
+//        return Year;
+//    }
+//
+//    public void setYear(String year) {
+//        Year = year;
+//    }
+
+    public Integer getYear() {
         return Year;
     }
 
-    public void setYear(String year) {
+    public void setYear(Integer year) {
         Year = year;
     }
 
