@@ -1,5 +1,7 @@
 package com.revature.WebApp.entities;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -32,6 +34,14 @@ public class MovieUser {
 
     @Column(name = "user_bio", nullable = true)
     private String userBio;
+
+    @Column(nullable = false)
+    private Role role;
+
+    public MovieUser(MovieUser register) {
+        super();
+    }
+
 
     public Integer getUserId() {
         return userId;
@@ -89,5 +99,43 @@ public class MovieUser {
         this.userBio = userBio;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieUser{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userBio='" + userBio + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    public enum Role {
+        ADMIN("Admin"), DEV("Dev"), BASIC_USER("Basic User"),
+        PREMIUM_USER("Premium User"), LOCKED("Locked");
+
+        private String name;
+
+        Role(String name) {
+            this.name = name;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return name;
+        }
+    }
 
 }

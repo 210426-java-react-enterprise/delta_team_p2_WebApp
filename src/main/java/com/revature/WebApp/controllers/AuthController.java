@@ -3,28 +3,37 @@ package com.revature.WebApp.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.LoginDTO;
+import com.revature.WebApp.DTO.Principal;
 import com.revature.WebApp.entities.MovieUser;
 import com.revature.WebApp.entities.PrototypeEntity;
 import com.revature.WebApp.repositories.MovieUserRepository;
 import com.revature.WebApp.repositories.PrototypeRepository;
+import com.revature.WebApp.security.JwtConfig;
+import com.revature.WebApp.security.TokenGenerator;
+import com.revature.WebApp.services.MovieUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
 public class AuthController {
 
-    private MovieUserRepository userRepo;
-    private ObjectMapper json;
+    private MovieUserService movieUserService;
+    private TokenGenerator tokenGenerator;
+    private JwtConfig jwtConfig;
 
     @Autowired
-    public  AuthController(MovieUserRepository userRepo){
-        this.userRepo = userRepo;
-        json = new ObjectMapper();
+    public  AuthController(MovieUserService movieUserService, TokenGenerator tokenGenerator, JwtConfig jwtConfig){
+        this.movieUserService = movieUserService;
+        this.tokenGenerator = tokenGenerator;
+        this.jwtConfig = jwtConfig;
     }
 
     /**
@@ -34,11 +43,12 @@ public class AuthController {
      * @return - json formatted string with query results
      * @throws JsonProcessingException
      */
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/auth", consumes = "application/json", produces = "application/json")
-    public String registerUser(@RequestBody MovieUser newUser, HttpServletResponse response) throws JsonProcessingException {
-        userRepo.save(newUser);
-        response.setStatus(201);
-        return json.writeValueAsString(newUser);
+    public MovieUser registerUser(@RequestBody MovieUser newUser, HttpServletResponse response) throws JsonProcessingException {
+        MovieUser registeredUser = new MovieUser(movieUserService.register(newUser));
+        response.setHeader("Cache-Control", "no-store");
+        return registeredUser;
     }
 
     /**
@@ -46,25 +56,13 @@ public class AuthController {
      * @param loginDTO - A DTO representing the username and password that will be used to find a user in the database
      * @param response - HTTP response object
      * @return - json formatted string with updated object (if found)
-     * @throws JsonProcessingException
      */
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public String login(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws JsonProcessingException {
-        MovieUser foundUser = userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
-        Optional<MovieUser> foundUserOptional = Optional.of(userRepo.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword()));
-        if(foundUserOptional.isPresent()){
-
-            //Create JWT?
-
-            response.setStatus(200);
-            return json.writeValueAsString(foundUserOptional.get());
-        } else {
-            response.setStatus(404);
-            return "Invalid username and/or password!";
-        }
-
-
-
+    public Principal login(@RequestBody @Valid LoginDTO loginDTO, HttpServletResponse response) {
+        Principal foundUser = movieUserService.authenticate(loginDTO.getUsername(), loginDTO.getPassword());
+        String jwt = tokenGenerator.createJwt(foundUser);
+        response.setHeader(jwtConfig.getHeader(), jwt);
+        return foundUser;
     }
 
 }
