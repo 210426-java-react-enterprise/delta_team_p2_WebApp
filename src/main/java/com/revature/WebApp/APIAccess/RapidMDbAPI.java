@@ -40,22 +40,24 @@ public class RapidMDbAPI {
         OkHttpClient client = new OkHttpClient();
 
         APICallsEntity apiCall = new APICallsEntity("RapidMDb", searchString);
-        apiTracker.trackApiCall(apiCall);
+        if(apiTracker.trackApiCall(apiCall)) {
+            Request request = new Request.Builder()
+                    .url(searchString)
+                    .get()
+                    .addHeader("x-rapidapi-key", apiKey)
+                    .addHeader("x-rapidapi-host", host)
+                    .build();
 
-        Request request = new Request.Builder()
-                .url(searchString)
-                .get()
-                .addHeader("x-rapidapi-key", apiKey)
-                .addHeader("x-rapidapi-host", host)
-                .build();
+            Response response = client.newCall(request).execute();
+            String jsonResults = response.body().string();
+            jsonResults = jsonResults.replace("imdbID", "ImdbID");
+            jsonResults = jsonResults.replace("totalResults", "TotalResults");
+            ObjectMapper mapper = new ObjectMapper();
+            RapidMDbSearchResultsDTO searchResults = mapper.readValue(jsonResults, RapidMDbSearchResultsDTO.class);
 
-        Response response = client.newCall(request).execute();
-        String jsonResults = response.body().string();
-        jsonResults = jsonResults.replace("imdbID", "ImdbID");
-        jsonResults = jsonResults.replace("totalResults", "TotalResults");
-        ObjectMapper mapper = new ObjectMapper();
-        RapidMDbSearchResultsDTO searchResults = mapper.readValue(jsonResults, RapidMDbSearchResultsDTO.class);
+            return searchResults;
+        }
 
-        return searchResults;
+        return null;
     }
 }

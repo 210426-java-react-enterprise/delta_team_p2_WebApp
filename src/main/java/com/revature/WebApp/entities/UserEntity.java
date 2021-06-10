@@ -1,8 +1,10 @@
 package com.revature.WebApp.entities;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+
+
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name="users")
@@ -12,16 +14,18 @@ public class UserEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    @NotNull
+    @NotBlank(message = "username cannot be blank")
     @Column(nullable = false, unique = true)
     private String username;
 
-    @NotNull
+    @NotEmpty(message = "password cannot be empty")
     @Column(nullable = false)
     private String password;
 
     @Email
+    @Pattern(regexp = "^([0-9a-zA-Z.]+@[0-9a-zA-Z]+[.][a-zA-Z]+){1,255}$", message = "need a valid email")
     @Column(nullable = false, unique = true)
+    @NotBlank(message="email can not be blank")
     private String email;
 
     @Column(name = "first_name", nullable = false)

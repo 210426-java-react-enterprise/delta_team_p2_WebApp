@@ -1,15 +1,14 @@
-package com.revature.WebApp.entities;
+package com.revature.WebApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import javax.persistence.*;
+import java.util.List;
 
-
-@Entity
-@Table(name="movie_cache")
-public class MovieDetailsEntity {
-    @Id
-    private String imdbId;
-
+@JsonIgnoreProperties
+@JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
+public class OMDbSearchResultsDTO {
     private String title;
     private String Year;
     private String rated;
@@ -24,25 +23,21 @@ public class MovieDetailsEntity {
     private String country;
     private String awards;
     private String poster;
+    private List<OMDbRatingsElementDTO> ratings;
     private String metascore;
     private String imdbRating;
     private String imdbVotes;
+    private String imdbID;
     private String type;
     private String dvd;
     private String boxOffice;
     private String production;
     private String website;
+    private String response;
+    private String error;
 
-    public MovieDetailsEntity() {
+    public OMDbSearchResultsDTO() {
 
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
     }
 
     public String getTitle() {
@@ -157,6 +152,14 @@ public class MovieDetailsEntity {
         this.poster = poster;
     }
 
+    public List<OMDbRatingsElementDTO> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<OMDbRatingsElementDTO> ratings) {
+        this.ratings = ratings;
+    }
+
     public String getMetascore() {
         return metascore;
     }
@@ -179,6 +182,14 @@ public class MovieDetailsEntity {
 
     public void setImdbVotes(String imdbVotes) {
         this.imdbVotes = imdbVotes;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
     public String getType() {
@@ -220,4 +231,21 @@ public class MovieDetailsEntity {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
 }

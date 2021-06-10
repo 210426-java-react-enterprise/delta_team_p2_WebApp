@@ -64,13 +64,21 @@ public class AppProperties {
                 serverPort = appProperties.getProperty("server.port");
                 rapidAPIKey = appProperties.getProperty("rapidapi.key");
                 h2consoleEnabled = appProperties.getProperty("spring.h2.console.enabled");
-                h2consoleEnabled = appProperties.getProperty("omdbapi.key");
+                omdbAPIKey = appProperties.getProperty("omdbapi.key");
 
             } catch (Exception e) {
                 //TODO - change this
                 e.printStackTrace();
             }
         }
+
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//        } catch (ClassNotFoundException e) {
+//            //TODO - change this
+//            e.printStackTrace();
+//        }
+
 
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url(dataSourceURL);

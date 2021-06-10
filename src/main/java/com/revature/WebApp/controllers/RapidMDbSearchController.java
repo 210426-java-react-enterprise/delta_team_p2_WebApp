@@ -15,7 +15,7 @@ import java.io.IOException;
 @RestController
 public class RapidMDbSearchController {
     private final ObjectMapper json;
-    private RapidMDbAPI apiAccess;
+    private final RapidMDbAPI apiAccess;
 
     @Autowired
     public RapidMDbSearchController(RapidMDbAPI api) {
@@ -27,12 +27,15 @@ public class RapidMDbSearchController {
     public String titleSearch(@PathVariable String movieTitle, HttpServletResponse response) throws IOException {
         RapidMDbSearchResultsDTO searchResultObject = apiAccess.searchByTitle(movieTitle);
 
+        if(searchResultObject == null) {
+            response.setStatus(503);
+            return "No more calls to RapidMDb API are allowed in this time period.";
+        }
         if(searchResultObject.getResponse().equals("False")) {
             response.setStatus(404);
-            return "Title not found in Internet MovieDetailsEntity Database.";
+            return "Title not found in RapidMDB Database.";
         }
         response.setStatus(200);
         return json.writeValueAsString(searchResultObject);
-
     }
 }
