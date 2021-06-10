@@ -1,10 +1,10 @@
 package com.revature.WebApp.DTO;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-@JsonNaming(PropertyNamingStrategies.UpperCamelCaseStrategy.class)
-public class OMDbElementDTO {
+@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
+public class RapidMDBElementDTO {
     private String title;
     private String year;
     private String imdbID;
@@ -12,11 +12,11 @@ public class OMDbElementDTO {
     private String poster;
 
 
-    public OMDbElementDTO() {
+    public RapidMDBElementDTO() {
 
     }
 
-    public OMDbElementDTO(String title, String year, String imdb, String type, String poster) {
+    public RapidMDBElementDTO(String title, String year, String imdb, String type, String poster) {
         this.title = title;
         this.year = year;
         this.imdbID = imdb;
@@ -68,7 +68,7 @@ public class OMDbElementDTO {
 
     @Override
     public String toString() {
-        return "OMDbElementDTO{" +
+        return "RapidMDBElementDTO{" +
                 "title='" + title + '\'' +
                 ", year='" + year + '\'' +
                 ", imdbID='" + imdbID + '\'' +
