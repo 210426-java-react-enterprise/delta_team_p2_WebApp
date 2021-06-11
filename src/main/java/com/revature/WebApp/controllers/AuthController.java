@@ -4,15 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.LoginDTO;
 import com.revature.WebApp.DTO.Principal;
-import com.revature.WebApp.entities.MovieUser;
-import com.revature.WebApp.entities.PrototypeEntity;
-import com.revature.WebApp.repositories.MovieUserRepository;
-import com.revature.WebApp.repositories.PrototypeRepository;
 import com.revature.WebApp.security.JwtConfig;
 import com.revature.WebApp.security.TokenGenerator;
 import com.revature.WebApp.services.MovieUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import com.revature.WebApp.entities.UserEntity;
+import com.revature.WebApp.repositories.UserRepository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,8 +22,8 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
+@Validated
 public class AuthController {
-
     private MovieUserService movieUserService;
     private TokenGenerator tokenGenerator;
     private JwtConfig jwtConfig;
@@ -34,6 +33,7 @@ public class AuthController {
         this.movieUserService = movieUserService;
         this.tokenGenerator = tokenGenerator;
         this.jwtConfig = jwtConfig;
+
     }
 
     /**
@@ -45,8 +45,9 @@ public class AuthController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/auth", consumes = "application/json", produces = "application/json")
-    public MovieUser registerUser(@RequestBody MovieUser newUser, HttpServletResponse response) throws JsonProcessingException {
-        MovieUser registeredUser = new MovieUser(movieUserService.register(newUser));
+    public UserEntity registerUser(@RequestBody @Valid UserEntity newUser, HttpServletResponse response) throws JsonProcessingException {
+        UserEntity registeredUser = movieUserService.register(newUser);
+        response.setStatus(201);
         response.setHeader("Cache-Control", "no-store");
         return registeredUser;
     }
@@ -61,8 +62,12 @@ public class AuthController {
     public Principal login(@RequestBody @Valid LoginDTO loginDTO, HttpServletResponse response) {
         Principal foundUser = movieUserService.authenticate(loginDTO.getUsername(), loginDTO.getPassword());
         String jwt = tokenGenerator.createJwt(foundUser);
+        response.setStatus(200);
         response.setHeader(jwtConfig.getHeader(), jwt);
         return foundUser;
+
+        //TODO - Invalid?
+
     }
 
 }

@@ -5,9 +5,9 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Optional;
 import java.util.Properties;
 
+//TODO Change this to a bean and autowire it in as needed.
 public class AppProperties {
     private static String appPropsFilePath;
     private static AppProperties appProperties;
@@ -21,6 +21,7 @@ public class AppProperties {
 
     //API Configs
     private String rapidAPIKey;
+    private String omdbAPIKey;
 
     public static AppProperties getAppProperties() {
         if(appProperties == null) {
@@ -47,6 +48,7 @@ public class AppProperties {
         serverPort = System.getenv("SPRING_SERVER_PORT");
         rapidAPIKey = System.getenv("RAPIDAPI_KEY");
         h2consoleEnabled = System.getenv("SPRING_H2_CONSOLE_ENABLED");
+        omdbAPIKey = System.getenv("OMDB_API_KEY");
 
         File checkFile = new File(appPropsFilePath);
         if(checkFile.exists()) {
@@ -62,6 +64,7 @@ public class AppProperties {
                 serverPort = appProperties.getProperty("server.port");
                 rapidAPIKey = appProperties.getProperty("rapidapi.key");
                 h2consoleEnabled = appProperties.getProperty("spring.h2.console.enabled");
+                omdbAPIKey = appProperties.getProperty("omdbapi.key");
 
             } catch (Exception e) {
                 //TODO - change this
@@ -69,7 +72,12 @@ public class AppProperties {
             }
         }
 
-
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//        } catch (ClassNotFoundException e) {
+//            //TODO - change this
+//            e.printStackTrace();
+//        }
 
 
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
@@ -94,5 +102,9 @@ public class AppProperties {
 
     public String getH2consoleEnabled() {
         return h2consoleEnabled;
+    }
+
+    public String getOmdbAPIKey() {
+        return omdbAPIKey;
     }
 }

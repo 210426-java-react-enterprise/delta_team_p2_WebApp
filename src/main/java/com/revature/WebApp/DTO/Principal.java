@@ -1,13 +1,13 @@
 package com.revature.WebApp.DTO;
 
-import com.revature.WebApp.entities.MovieUser;
+import com.revature.WebApp.entities.UserEntity;
 import io.jsonwebtoken.Claims;
 
 public class Principal {
 
     private int id;
     private String username;
-    private MovieUser.Role role;
+    private UserEntity.Role role;
 
     public Principal() {
         super();
@@ -16,10 +16,10 @@ public class Principal {
     public Principal(Claims jwtClaims) {
         this.id = Integer.parseInt(jwtClaims.getId());
         this.username = jwtClaims.getSubject();
-        this.role = MovieUser.Role.valueOf(jwtClaims.get("role", String.class).toUpperCase());
+        this.role = UserEntity.Role.valueOf(jwtClaims.get("role", String.class).toUpperCase());
     }
 
-    public Principal(MovieUser user) {
+    public Principal(UserEntity user) {
         this.id = user.getUserId();
         this.username = user.getUsername();
         this.role = user.getRole();
@@ -41,11 +41,11 @@ public class Principal {
         this.username = username;
     }
 
-    public MovieUser.Role getRole() {
+    public UserEntity.Role getRole() {
         return role;
     }
 
-    public void setRole(MovieUser.Role role) {
+    public void setRole(UserEntity.Role role) {
         this.role = role;
     }
 

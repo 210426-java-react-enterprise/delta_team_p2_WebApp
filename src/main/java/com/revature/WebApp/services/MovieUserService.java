@@ -1,9 +1,9 @@
 package com.revature.WebApp.services;
 
 import com.revature.WebApp.DTO.Principal;
-import com.revature.WebApp.entities.MovieUser;
+import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.*;
-import com.revature.WebApp.repositories.MovieUserRepository;
+import com.revature.WebApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,15 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MovieUserService {
 
-    private MovieUserRepository movieUserRepo;
+    private UserRepository movieUserRepo;
 
     @Autowired
-    public MovieUserService(MovieUserRepository movieUserDao) {
+    public MovieUserService(UserRepository movieUserDao) {
         this.movieUserRepo = movieUserDao;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public MovieUser register(MovieUser newMovieUser) throws InvalidRequestException, ResourcePersistenceException {
+    public UserEntity register(UserEntity newMovieUser) throws InvalidRequestException, ResourcePersistenceException {
 
         isUserValid(newMovieUser);
 
@@ -33,11 +33,11 @@ public class MovieUserService {
             throw new ResourcePersistenceException("Provided email is already taken!");
         }
 
-        newMovieUser.setRole(MovieUser.Role.BASIC_USER);
+        newMovieUser.setRole(UserEntity.Role.BASIC_USER);
         return movieUserRepo.save(newMovieUser);
     }
 
-    public void isUserValid(MovieUser u) throws InvalidRequestException {
+    public void isUserValid(UserEntity u) throws InvalidRequestException {
 
         if (u == null)
             throw new InvalidRequestException("A null user was provided.");
@@ -96,7 +96,7 @@ public class MovieUserService {
 
         try {
 
-            MovieUser authUser = movieUserRepo.findByUsernameAndPassword(username, password)
+            UserEntity authUser = movieUserRepo.findByUsernameAndPassword(username, password)
                     .orElseThrow(AuthenticationException::new);
 
             return new Principal(authUser);
@@ -123,7 +123,7 @@ public class MovieUserService {
                 return str.length() <= 255;
             case "role":
                 try {
-                    MovieUser.Role.valueOf(str);
+                    UserEntity.Role.valueOf(str);
                     return true;
                 } catch (IllegalArgumentException e) {
                     return false;

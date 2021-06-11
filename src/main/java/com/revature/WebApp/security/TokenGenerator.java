@@ -1,7 +1,6 @@
 package com.revature.WebApp.security;
 
 import com.revature.WebApp.DTO.Principal;
-import com.revature.WebApp.entities.MovieUser;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
