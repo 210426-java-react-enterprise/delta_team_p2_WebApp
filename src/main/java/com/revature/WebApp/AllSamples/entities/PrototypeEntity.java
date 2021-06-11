@@ -1,4 +1,4 @@
-package com.revature.WebApp.entities;
+package com.revature.WebApp.AllSamples.entities;
 
 import javax.persistence.*;
 
