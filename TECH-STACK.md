@@ -27,6 +27,8 @@
 - [ ] Swagger (for documentation)
 - [ ] Third-Party APIs (for content):
   - [x] OMDb
+  - [x] RapidMDb
+  - [ ] IMDb
 
 ### Bonus Back-End Goals:
 - [ ] AspectJ (for logging)
