@@ -3,7 +3,8 @@ package com.revature.WebApp.entities;
 import javax.persistence.*;
 
 @Entity
-public class Settings {
+@Table(name = "settings")
+public class SettingsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "settings_id")
@@ -13,7 +14,7 @@ public class Settings {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
-    private MovieUser user;
+    private UserEntity user;
 
     private String theme;
     private Boolean privacy;

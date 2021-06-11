@@ -1,8 +1,9 @@
 package com.revature.WebApp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.WebApp.APIAccess.OMDbAPI;
-import com.revature.WebApp.DTO.OMDbSearchResultsDTO;
+import com.revature.WebApp.APIAccess.RapidMDbAPI;
+import com.revature.WebApp.DTO.RapidMDbSearchResultsDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,24 +13,29 @@ import java.io.IOException;
 
 
 @RestController
-public class OMDbSearchController {
+public class RapidMDbSearchController {
     private final ObjectMapper json;
+    private final RapidMDbAPI apiAccess;
 
-    //@Autowired
-    public OMDbSearchController() {
+    @Autowired
+    public RapidMDbSearchController(RapidMDbAPI api) {
+        apiAccess = api;
         json = new ObjectMapper();
     }
 
-    @GetMapping(value="/omdb/{movieTitle}", produces = "application/json")
+    @GetMapping(value="/rapidSearch/{movieTitle}", produces = "application/json")
     public String titleSearch(@PathVariable String movieTitle, HttpServletResponse response) throws IOException {
-        OMDbSearchResultsDTO searchResultObject = OMDbAPI.getAPIAccess().searchByTitle(movieTitle);
+        RapidMDbSearchResultsDTO searchResultObject = apiAccess.searchByTitle(movieTitle);
 
+        if(searchResultObject == null) {
+            response.setStatus(503);
+            return "No more calls to RapidMDb API are allowed in this time period.";
+        }
         if(searchResultObject.getResponse().equals("False")) {
             response.setStatus(404);
-            return "Title not found in Internet Movie Database.";
+            return "Title not found in RapidMDB Database.";
         }
         response.setStatus(200);
         return json.writeValueAsString(searchResultObject);
-
     }
 }

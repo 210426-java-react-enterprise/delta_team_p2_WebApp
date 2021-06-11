@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "movies")
-public class Movie {
+public class MovieEntity {
 
     @Id
     @NotNull

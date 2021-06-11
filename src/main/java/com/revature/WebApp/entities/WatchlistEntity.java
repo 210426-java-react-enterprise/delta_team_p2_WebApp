@@ -4,19 +4,20 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Watchlist {
+@Table(name = "watchlist")
+public class WatchlistEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "watchlist_id")
     private Integer watchlistId;
 
     @NotNull
-    @ManyToOne(targetEntity = MovieUser.class, optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = UserEntity.class, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user_id", nullable = false)
-    private MovieUser userId;
+    private UserEntity userId;
 
     @NotNull
-    @ManyToOne(targetEntity = Movie.class, optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = MovieDetailsEntity.class, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_movie_id", nullable = false)
-    private Movie movieId;
+    private MovieDetailsEntity movieId;
 }
