@@ -13,7 +13,7 @@ Application must leverage the full stack:
 Technology framework requirements: 
 - [x] Java API will use Hibernate to communicate with a PostGreSQL RDBMS 
 - [x] Java API will leverage the Spring Framework 
-- [ ] Java API will be RESTful (no `HttpSession`, use JWTs!)
+- [x] Java API will be RESTful (no `HttpSession`, use JWTs!)
 - [ ] Complete CI/CD pipelines will use AWS (CodePipeline, CodeBuild, Elastic Beanstalk, and S3)
  
 
