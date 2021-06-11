@@ -1,9 +1,9 @@
-package com.revature.WebApp.controllers;
+package com.revature.WebApp.AllSamples.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.WebApp.entities.PrototypeEntity;
-import com.revature.WebApp.repositories.PrototypeRepository;
+import com.revature.WebApp.AllSamples.entities.PrototypeEntity;
+import com.revature.WebApp.AllSamples.repositories.PrototypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.MediaType;
