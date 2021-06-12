@@ -3,6 +3,10 @@ package com.revature.WebApp.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Entity representing a row in the watchlist database table which is used to track movies a user
+ * has not seen and wants to in the future.
+ */
 @Entity
 @Table(name = "watchlist")
 public class WatchlistEntity {

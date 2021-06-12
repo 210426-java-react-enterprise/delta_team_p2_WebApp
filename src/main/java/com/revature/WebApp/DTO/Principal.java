@@ -3,6 +3,9 @@ package com.revature.WebApp.DTO;
 import com.revature.WebApp.entities.UserEntity;
 import io.jsonwebtoken.Claims;
 
+/**
+ * DTO for JWT auth data
+ */
 public class Principal {
 
     private int id;

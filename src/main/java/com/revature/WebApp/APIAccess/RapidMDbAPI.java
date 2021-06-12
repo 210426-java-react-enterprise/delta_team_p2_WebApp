@@ -14,26 +14,37 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
+ * RapidAPI Movie Database search pulls from IMDb but offers 1,000 calls/day instead of 200/month.
+ * Doesn't have as many possible search criteria and doesn't contain as many details. Does return IMDb ID
+ * which can be used to lookup details in OMDb.
  * https://rapidapi.com/rapidapi/api/movie-database-imdb-alternative
  */
 
 @Component
 public class RapidMDbAPI {
     private APICallTracker apiTracker;
+    private AppProperties appProperties;
     private String URL;
     private String apiKey;
     private String host;
 
 
     @Autowired
-    private RapidMDbAPI(APICallTracker apiCallTracker) {
-        apiTracker = apiCallTracker;
+    private RapidMDbAPI(APICallTracker apiCallTracker, AppProperties appProperties) {
+        this.apiTracker = apiCallTracker;
+        this.appProperties = appProperties;
         URL = "https://movie-database-imdb-alternative.p.rapidapi.com/";
-        apiKey = AppProperties.getAppProperties().getRapidAPIKey();
+        //apiKey = AppProperties.getAppProperties().getRapidAPIKey();
+        apiKey = appProperties.getSetting("rapidapi.key");
         host = "movie-database-imdb-alternative.p.rapidapi.com";
     }
 
-
+    /**
+     * RapidAPI Movie Database search, get collection of movies and IDMb IDs by title search.
+     * @param title - string title of movie
+     * @return RapidMDbSearchResultsDTO - object containing a collection of titles matching search string
+     * @throws IOException
+     */
     public RapidMDbSearchResultsDTO searchByTitle(String title) throws IOException {
 
         String searchString = URL + "?s=" + title + "&page=1&r=json";

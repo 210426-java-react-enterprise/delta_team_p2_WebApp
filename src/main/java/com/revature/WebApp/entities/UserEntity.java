@@ -7,6 +7,10 @@ import javax.persistence.*;
 
 import javax.validation.constraints.*;
 
+
+/**
+ * Entity representing a row in database users table, used to store info including auth info for users.
+ */
 @Entity
 @Table(name="users")
 public class UserEntity {
