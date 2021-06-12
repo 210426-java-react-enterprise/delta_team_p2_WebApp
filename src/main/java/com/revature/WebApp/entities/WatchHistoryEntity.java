@@ -3,6 +3,10 @@ package com.revature.WebApp.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Entity representing a row in the watch_history table, for maintaining a list of movies a user has seen, as well
+ * as review and score.
+ */
 @Entity
 @Table(name = "watch_history")
 public class WatchHistoryEntity {
