@@ -5,7 +5,11 @@ import com.revature.WebApp.DTO.OMDbSearchResultsDTO;
 
 import javax.persistence.*;
 
-
+/**
+ * Entity representing a row in the movie_cache table.
+ * This table stores info on the movie details previously retrieved, as they are mostly static we
+ * can keep them here to reduce future calls to OMDb and IMDb.
+ */
 @Entity
 @Table(name="movie_cache")
 public class MovieDetailsEntity {

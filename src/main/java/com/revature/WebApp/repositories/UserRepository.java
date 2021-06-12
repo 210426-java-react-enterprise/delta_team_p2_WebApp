@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository interface for CRUD access to the users table
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-
-    //UserEntity findByUsernameAndPassword(String username, String password);
 
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
 

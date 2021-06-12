@@ -2,6 +2,9 @@ package com.revature.WebApp.entities;
 
 import javax.persistence.*;
 
+/**
+ * Entity represents a row in the table settings, used to persist user specific settings between sessions.
+ */
 @Entity
 @Table(name = "settings")
 public class SettingsEntity {
