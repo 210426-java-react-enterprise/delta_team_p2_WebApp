@@ -9,5 +9,4 @@ import java.util.Optional;
 @Repository
 public interface MovieDetailsRepository extends JpaRepository<MovieDetailsEntity, String> {
     MovieDetailsEntity findByImdbId(String imdbId);
-    //MovieDetailsEntity findByImdbId(String imdbId);
 }
