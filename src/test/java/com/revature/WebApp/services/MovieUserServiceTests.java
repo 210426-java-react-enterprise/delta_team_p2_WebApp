@@ -3,6 +3,7 @@ package com.revature.WebApp.services;
 import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.DataSourceException;
 import com.revature.WebApp.exceptions.InvalidRequestException;
+import com.revature.WebApp.repositories.MovieDetailsRepository;
 import com.revature.WebApp.repositories.UserRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -22,12 +23,14 @@ public class MovieUserServiceTests {
     MovieUserService sut;
     UserRepository mockUserRepository;
     UserEntity mockUserEntity;
+    MovieDetailsRepository mockMovieDetailRepo;
 
     @Before
     public void setUp() {
         mockUserRepository = mock(UserRepository.class);
         mockUserEntity = mock(UserEntity.class);
-        sut = new MovieUserService(mockUserRepository);
+        mockMovieDetailRepo = mock(MovieDetailsRepository.class);
+        sut = new MovieUserService(mockUserRepository, mockMovieDetailRepo);
     }
 
     @After
@@ -35,6 +38,7 @@ public class MovieUserServiceTests {
         sut = null;
         mockUserEntity = null;
         mockUserRepository = null;
+        mockMovieDetailRepo = null;
     }
 
     @Test

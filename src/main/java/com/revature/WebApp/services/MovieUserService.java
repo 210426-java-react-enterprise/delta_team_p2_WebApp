@@ -1,7 +1,7 @@
 package com.revature.WebApp.services;
 
+import com.revature.WebApp.DTO.MovieDetailsDTO;
 import com.revature.WebApp.DTO.Principal;
-import com.revature.WebApp.DTO.WatchListDTO;
 import com.revature.WebApp.entities.MovieDetailsEntity;
 import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.*;
@@ -145,16 +145,26 @@ public class MovieUserService {
 
     }
 
-    public List<WatchListDTO> getUsersWatchList(String userID){
+    public List<MovieDetailsDTO> getUsersWatchList(String userID){
         List<MovieDetailsEntity> searchResults = movieDetailRepo.getWatchListDetail(Integer.parseInt(userID));
         System.out.println("Debug: " + searchResults.size());
-        List<WatchListDTO> watchList = new ArrayList<>();
+        List<MovieDetailsDTO> watchList = new ArrayList<>();
         for (MovieDetailsEntity movie: searchResults){
             System.out.println(movie.getTitle());
-            watchList.add(new WatchListDTO(movie));
+            watchList.add(new MovieDetailsDTO(movie));
         }
         return watchList;
     }
 
+    public List<MovieDetailsDTO> getUsersWatchHistory(String userID){
+        List<MovieDetailsEntity> searchResults = movieDetailRepo.getWatchHistoryDetail(Integer.parseInt(userID));
+        System.out.println("Debug: " + searchResults.size());
+        List<MovieDetailsDTO> watchList = new ArrayList<>();
+        for (MovieDetailsEntity movie: searchResults){
+            System.out.println(movie.getTitle());
+            watchList.add(new MovieDetailsDTO(movie));
+        }
+        return watchList;
+    }
 
 }
