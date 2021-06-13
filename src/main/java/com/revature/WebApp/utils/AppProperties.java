@@ -22,6 +22,7 @@ public class AppProperties {
     //API Configs
     private String rapidAPIKey;
     private String omdbAPIKey;
+    private String imdbAPIKey;
 
     public static AppProperties getAppProperties() {
         if(appProperties == null) {
@@ -49,6 +50,7 @@ public class AppProperties {
         rapidAPIKey = System.getenv("RAPIDAPI_KEY");
         h2consoleEnabled = System.getenv("SPRING_H2_CONSOLE_ENABLED");
         omdbAPIKey = System.getenv("OMDB_API_KEY");
+        rapidAPIKey = System.getenv("");
 
         File checkFile = new File(appPropsFilePath);
         if(checkFile.exists()) {
