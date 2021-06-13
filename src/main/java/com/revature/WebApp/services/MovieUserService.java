@@ -37,7 +37,7 @@ public class MovieUserService {
         return movieUserRepo.save(newMovieUser);
     }
 
-    public void isUserValid(UserEntity u) throws InvalidRequestException {
+    public boolean isUserValid(UserEntity u) throws InvalidRequestException {
 
         if (u == null)
             throw new InvalidRequestException("A null user was provided.");
@@ -57,6 +57,7 @@ public class MovieUserService {
         if (!isValid(u.getLastName(), "lastName"))
             throw new InvalidRequestException("An invalid last name was provided.");
 
+        return true;
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -91,8 +92,8 @@ public class MovieUserService {
     @Transactional(readOnly = true)
     public Principal authenticate(String username, String password) throws AuthenticationException {
 
-        if (!isValid(username, "username") && !isValid(password, "password"))
-            throw new InvalidRequestException("Invalid username value provided!");
+        if (!isValid(username, "username") || !isValid(password, "password"))
+            throw new InvalidRequestException("Invalid username and/or password provided!");
 
         try {
 
@@ -111,6 +112,7 @@ public class MovieUserService {
     public boolean isValid(String str, String fieldName) {
 
         if (str == null || str.trim().isEmpty()) return false;
+        if (fieldName == null || fieldName.trim().isEmpty()) return false;
 
         switch (fieldName) {
             case "username":
