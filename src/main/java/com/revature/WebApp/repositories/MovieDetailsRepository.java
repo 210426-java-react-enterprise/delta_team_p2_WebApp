@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Repository interface for CRUD access to the movie_cache table
+ */
 @Repository
 public interface MovieDetailsRepository extends JpaRepository<MovieDetailsEntity, String> {
     MovieDetailsEntity findByImdbId(String imdbId);

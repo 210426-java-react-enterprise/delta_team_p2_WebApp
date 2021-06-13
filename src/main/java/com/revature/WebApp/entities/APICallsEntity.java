@@ -3,7 +3,11 @@ package com.revature.WebApp.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+/**
+ * This entity represents a row in the database table api_calls
+ * which tracks calls tot he various external APIs to allow the tracking
+ * service to stop us from using too many calls in a time period and incurring costs.
+ */
 @Entity
 @Table(name="api_calls")
 public class APICallsEntity {

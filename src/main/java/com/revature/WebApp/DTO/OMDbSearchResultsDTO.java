@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.List;
 
+/**
+ * DTO for unmarshling the JSON returned from OMDb details lookup.
+ */
 @JsonIgnoreProperties
 @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class OMDbSearchResultsDTO {

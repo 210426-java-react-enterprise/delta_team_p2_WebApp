@@ -15,22 +15,32 @@ import java.io.IOException;
 
 
 /**
+ * Open Movie Database API. This API allows 1,000 free calls per day and offers title and IMDb ID search. Returns
+ * limited info on a collection of results from title search, offers extensive details from ID lookup.
  * http://omdbapi.com/
  */
 @Component
 public class OMDbAPI {
     private APICallTracker apiTracker;
+    private AppProperties appProperties;
     private String URL;
     private String apiKey;
 
     @Autowired
-    private OMDbAPI(APICallTracker apiCallTracker) {
-        apiTracker = apiCallTracker;
-        apiKey = AppProperties.getAppProperties().getOmdbAPIKey();
+    private OMDbAPI(APICallTracker apiCallTracker, AppProperties appProperties) {
+        this.apiTracker = apiCallTracker;
+        this.appProperties = appProperties;
+        apiKey = appProperties.getSetting("omdbapi.key");
         URL = "http://www.omdbapi.com/?apikey=" + apiKey + "&";
     }
 
 
+    /**
+     * Search OMDb by IMDbID to get details about a specific movie.
+     * @param imdbId
+     * @return OMDbSearchResultsDTO - object containing details of a movie.
+     * @throws IOException
+     */
     public OMDbSearchResultsDTO searchByImdbId(String imdbId) throws IOException {
         String searchString = URL + "i=" + imdbId;
         OkHttpClient client = new OkHttpClient();
