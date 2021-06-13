@@ -4,6 +4,7 @@ package com.revature.WebApp.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.FollowerDetailDTO;
+import com.revature.WebApp.DTO.WatchListDTO;
 import com.revature.WebApp.entities.FollowsListEntity;
 import com.revature.WebApp.services.FollowerService;
 import com.revature.WebApp.services.MovieUserService;
@@ -46,9 +47,9 @@ public class ProfileDetailsController {
     }
 
     @GetMapping(value = "/userwatchlist/{userId}", produces = "application/json")
-    public String getWatchlistDetail(@PathVariable String userId, HttpServletResponse response){
-
-        return "fail";
+    public String getWatchlistDetail(@PathVariable String userId, HttpServletResponse response) throws JsonProcessingException {
+        List<WatchListDTO> watchList = userService.getUsersWatchList(userId);
+        return objectMapper.writeValueAsString(watchList);
     }
 
 }

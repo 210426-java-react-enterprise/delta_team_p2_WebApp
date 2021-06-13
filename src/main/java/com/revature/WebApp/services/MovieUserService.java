@@ -2,8 +2,10 @@ package com.revature.WebApp.services;
 
 import com.revature.WebApp.DTO.Principal;
 import com.revature.WebApp.DTO.WatchListDTO;
+import com.revature.WebApp.entities.MovieDetailsEntity;
 import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.*;
+import com.revature.WebApp.repositories.MovieDetailsRepository;
 import com.revature.WebApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,12 @@ import java.util.List;
 public class MovieUserService {
 
     private UserRepository movieUserRepo;
+    private MovieDetailsRepository movieDetailRepo;
 
     @Autowired
-    public MovieUserService(UserRepository movieUserDao) {
+    public MovieUserService(UserRepository movieUserDao, MovieDetailsRepository movieDetailRepo) {
         this.movieUserRepo = movieUserDao;
+        this.movieDetailRepo = movieDetailRepo;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -140,9 +144,14 @@ public class MovieUserService {
     }
 
     public List<WatchListDTO> getUsersWatchList(String userID){
-        List<WatchListDTO> searchResults = new ArrayList<>();
-
-        return searchResults;
+        List<MovieDetailsEntity> searchResults = movieDetailRepo.getWatchListDetail(Integer.parseInt(userID));
+        System.out.println("Debug: " + searchResults.size());
+        List<WatchListDTO> watchList = new ArrayList<>();
+        for (MovieDetailsEntity movie: searchResults){
+            System.out.println(movie.getTitle());
+            watchList.add(new WatchListDTO(movie));
+        }
+        return watchList;
     }
 
 
