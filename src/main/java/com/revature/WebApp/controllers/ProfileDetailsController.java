@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.FollowerDetailDTO;
 import com.revature.WebApp.entities.FollowsListEntity;
 import com.revature.WebApp.services.FollowerService;
+import com.revature.WebApp.services.MovieUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +20,13 @@ import java.util.List;
 public class ProfileDetailsController {
 
     private final FollowerService followerService;
+    private final MovieUserService userService;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProfileDetailsController(FollowerService followerService){
+    public ProfileDetailsController(FollowerService followerService, MovieUserService userService){
         this.followerService = followerService;
+        this.userService = userService;
         objectMapper = new ObjectMapper();
     }
 
@@ -40,6 +43,12 @@ public class ProfileDetailsController {
 
         return objectMapper.writeValueAsString(followers);
 
+    }
+
+    @GetMapping(value = "/userwatchlist/{userId}", produces = "application/json")
+    public String getWatchlistDetail(@PathVariable String userId, HttpServletResponse response){
+
+        return "fail";
     }
 
 }

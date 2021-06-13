@@ -1,6 +1,7 @@
 package com.revature.WebApp.services;
 
 import com.revature.WebApp.DTO.Principal;
+import com.revature.WebApp.DTO.WatchListDTO;
 import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.*;
 import com.revature.WebApp.repositories.UserRepository;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -133,6 +137,12 @@ public class MovieUserService {
         }
 
 
+    }
+
+    public List<WatchListDTO> getUsersWatchList(String userID){
+        List<WatchListDTO> searchResults = new ArrayList<>();
+
+        return searchResults;
     }
 
 
