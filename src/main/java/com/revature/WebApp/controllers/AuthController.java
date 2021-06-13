@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+
+/**
+ * This controller is used to handle requests to register and authenticate users. /auth is the registration endpoint,
+ * /login is the login endpoint. Login generates a JWT to be stored locally and sent in the header in order to offer
+ * stateless multiuser service.
+ */
 @RestController
 @Validated
 public class AuthController {

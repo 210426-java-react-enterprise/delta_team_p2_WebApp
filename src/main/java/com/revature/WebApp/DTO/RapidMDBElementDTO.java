@@ -3,6 +3,10 @@ package com.revature.WebApp.DTO;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+
+/**
+ * DTO for the movie elements that are part of the RapidMDb title search results
+ */
 @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class RapidMDBElementDTO {
     private String title;
