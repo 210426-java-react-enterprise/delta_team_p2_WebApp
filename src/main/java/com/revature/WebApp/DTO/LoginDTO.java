@@ -1,5 +1,8 @@
 package com.revature.WebApp.DTO;
 
+/**
+ * DTO for login information.
+ */
 public class LoginDTO {
 
     private String username;

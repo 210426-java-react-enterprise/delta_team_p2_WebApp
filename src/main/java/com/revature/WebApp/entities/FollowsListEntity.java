@@ -4,6 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * Entity representing a row in the database follows_list table.
+ * Contains info linking current user to the user's they follow,
+ * allowing us to produce a list of profiles to view.
+ */
 @Entity
 @Table(name = "follows_list")
 public class FollowsListEntity {

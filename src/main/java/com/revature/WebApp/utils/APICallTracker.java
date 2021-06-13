@@ -63,9 +63,6 @@ public class APICallTracker {
                 return false;
         }
 
-//        System.out.println("DEBUG: Not too many calls. Allowed: " + maxCalls + "/" + period);
-//        System.out.println("Calls this month: " + apiCallRepo.getApiCallsThisMonth(entity.getApi(), LocalDate.now().getMonthValue()));
-//        System.out.println("Calls today: " + apiCallRepo.getApiCallsToday(entity.getApi(), LocalDate.now()));
         return true;
     }
 

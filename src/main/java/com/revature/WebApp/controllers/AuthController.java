@@ -1,7 +1,6 @@
 package com.revature.WebApp.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.LoginDTO;
 import com.revature.WebApp.DTO.Principal;
 import com.revature.WebApp.security.JwtConfig;
@@ -10,7 +9,6 @@ import com.revature.WebApp.services.MovieUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import com.revature.WebApp.entities.UserEntity;
-import com.revature.WebApp.repositories.UserRepository;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Optional;
 
+
+/**
+ * This controller is used to handle requests to register and authenticate users. /auth is the registration endpoint,
+ * /login is the login endpoint. Login generates a JWT to be stored locally and sent in the header in order to offer
+ * stateless multiuser service.
+ */
 @RestController
 @Validated
 public class AuthController {
