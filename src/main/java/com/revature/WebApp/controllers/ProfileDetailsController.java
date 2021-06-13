@@ -35,6 +35,7 @@ public class ProfileDetailsController {
 
     @GetMapping(value = "/followerdetail/{userId}", produces = "application/json")
     public String allfollowerdetail(@PathVariable String userId, HttpServletResponse response) throws JsonProcessingException {
+        System.out.println("Follower detail userId: " + userId);
         List<FollowerDetailDTO> followers = followerService.getAllFollowerDetail(userId);
         response.setStatus(201);
 

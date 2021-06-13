@@ -61,6 +61,7 @@ public class AppProperties {
         //set up external APIs
         settings.put("rapidapi.key", getProperty("rapidapi.key"));
         settings.put("omdbapi.key", getProperty("omdbapi.key"));
+        settings.put("imdbapi.key", getProperty("imdbapi.key"));
     }
 
     public static AppProperties getAppProperties() {

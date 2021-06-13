@@ -1,6 +1,5 @@
 package com.revature.WebApp.DTO;
 
-import lombok.Data;
 
 
 public class friendTest {
