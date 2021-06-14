@@ -27,6 +27,17 @@ public class AppProperties {
     //data source
     private DataSource dataSource;
 
+
+    //Server Configs
+    private String serverPort;
+    private String h2consoleEnabled;
+
+    //API Configs
+    private String rapidAPIKey;
+    private String omdbAPIKey;
+    private String imdbAPIKey;
+
+
     //settings map
     private Map<String, Object> settings;
 
