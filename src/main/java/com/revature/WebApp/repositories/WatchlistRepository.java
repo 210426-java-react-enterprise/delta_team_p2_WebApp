@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface WatchlistRepository  extends JpaRepository<WatchlistEntity, Integer> {
-    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM watchlist WHERE fk_movie_id = ?1 AND fk_user_id = ?2")
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM watch_history WHERE fk_movie_id = ?1 AND fk_user_id = ?2")
     Integer checkIfMovieAlreadyExists(String imdbId, Integer userId);
 
 }

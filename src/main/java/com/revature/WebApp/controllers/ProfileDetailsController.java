@@ -65,6 +65,7 @@ public class ProfileDetailsController {
             return;
         }
         Integer userId = ((Principal)request.getAttribute("principal")).getId();
+        System.out.println("Principal userId: " + userId);
 
         profileService.addToHistory(userId, reviewDTO.getImdbId());
 
