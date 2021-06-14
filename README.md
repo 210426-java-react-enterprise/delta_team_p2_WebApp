@@ -14,7 +14,7 @@ Technology framework requirements:
 - [x] Java API will use Hibernate to communicate with a PostGreSQL RDBMS 
 - [x] Java API will leverage the Spring Framework 
 - [x] Java API will be RESTful (no `HttpSession`, use JWTs!)
-- [ ] Complete CI/CD pipelines will use AWS (CodePipeline, CodeBuild, Elastic Beanstalk, and S3)
+- [x] Complete CI/CD pipelines will use AWS (CodePipeline, CodeBuild, Elastic Beanstalk, and S3)
  
 
 Other requirements: 
@@ -22,11 +22,11 @@ Other requirements:
 - [x] Application will leverage at least one external API 
 - [x] Application's own data model must be sufficiently complex (i.e. >2 tables) 
 - [x] RDBMS will be deployed to the cloud (AWS RDS) 
-- [ ] Java API will be deployed to the cloud (AWS EC2) 
-- [ ] UI application will be deployed to the cloud (AWS S3) 
-- [ ] Java API will have >=80% test coverage for service layer
+- [x] Java API will be deployed to the cloud (AWS EC2) 
+- [x] UI application will be deployed to the cloud (AWS S3) 
+- [x] Java API will have >=80% test coverage for service layer
 - [ ] Java API will leverage Spring's MockMvc for integration/e2e tests of controller endpoints
-- [ ] Java API will be adequately documents (Java Docs and web endpoint documentation [Swagger/OpenAPI])
+- [x] Java API will be adequately documents (Java Docs and web endpoint documentation [Swagger/OpenAPI])
 - [x] ~~At least one external API must be leveraged~~
 
 
