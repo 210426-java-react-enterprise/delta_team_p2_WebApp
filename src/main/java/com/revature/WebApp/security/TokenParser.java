@@ -35,6 +35,8 @@ public class TokenParser {
 
         String token = header.replaceAll(jwtConfig.getPrefix(), "");
 
+
+
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtConfig.getSigningKey())
                 .parseClaimsJws(token)

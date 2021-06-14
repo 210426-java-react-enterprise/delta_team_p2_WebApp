@@ -3,11 +3,13 @@ package com.revature.WebApp.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.APIAccess.RapidMDbAPI;
 import com.revature.WebApp.DTO.RapidMDbSearchResultsDTO;
+import com.revature.WebApp.security.TokenParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -21,11 +23,13 @@ import java.io.IOException;
 public class RapidMDbSearchController {
     private final ObjectMapper json;
     private final RapidMDbAPI apiAccess;
+    private final TokenParser tokenParser;
 
     @Autowired
-    public RapidMDbSearchController(RapidMDbAPI api) {
+    public RapidMDbSearchController(RapidMDbAPI api, TokenParser tokenParser) {
         apiAccess = api;
         json = new ObjectMapper();
+        this.tokenParser = tokenParser;
     }
 
     /**
@@ -37,8 +41,13 @@ public class RapidMDbSearchController {
      * @throws IOException
      */
     @GetMapping(value="/rapidSearch/{movieTitle}", produces = "application/json")
-    public String titleSearch(@PathVariable String movieTitle, HttpServletResponse response) throws IOException {
+    public String titleSearch(@PathVariable String movieTitle, HttpServletRequest request, HttpServletResponse response) throws IOException {
         RapidMDbSearchResultsDTO searchResultObject = apiAccess.searchByTitle(movieTitle);
+        tokenParser.checkToken(request);
+        if(request.getAttribute("principal") == null) {
+            response.setStatus(401);
+            return "Not Authorized.";
+        }
 
         if(searchResultObject == null) {
             response.setStatus(503);

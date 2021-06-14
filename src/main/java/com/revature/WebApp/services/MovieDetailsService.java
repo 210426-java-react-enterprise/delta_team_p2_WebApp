@@ -58,4 +58,14 @@ public class MovieDetailsService {
         return list;
     }
 
+    public List<MovieDetailsDTO> getWishListDetails(Integer userId) {
+
+        List<MovieDetailsEntity> searchResults = movieRepo.findWatchListDetails(userId);
+        List<MovieDetailsDTO> list = new ArrayList<>();
+        for (MovieDetailsEntity searchResult : searchResults) {
+            list.add(new MovieDetailsDTO(searchResult));
+        }
+        return list;
+    }
+
 }

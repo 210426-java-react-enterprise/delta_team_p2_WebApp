@@ -17,4 +17,7 @@ public interface MovieDetailsRepository extends JpaRepository<MovieDetailsEntity
 
     @Query(nativeQuery = true, value = "SELECT * FROM movie_cache mc INNER JOIN watch_history wh on wh.fk_movie_id = mc.imdb_id WHERE wh.fk_user_id = ?1")
     List<MovieDetailsEntity> findWatchHistoryDetails(Integer userId);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM movie_cache mc INNER JOIN watchlist wl on wl.fk_movie_id = mc.imdb_id WHERE wl.fk_user_id = ?1")
+    List<MovieDetailsEntity> findWatchListDetails(Integer userId);
 }
