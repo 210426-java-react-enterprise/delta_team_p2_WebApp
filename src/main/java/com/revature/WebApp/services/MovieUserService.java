@@ -33,7 +33,7 @@ public class MovieUserService {
             throw new ResourcePersistenceException("Provided email is already taken!");
         }
 
-        newMovieUser.setRole(UserEntity.Role.BASIC_USER);
+//        newMovieUser.setRole(UserEntity.Role.BASIC_USER);
         return movieUserRepo.save(newMovieUser);
     }
 
@@ -123,13 +123,13 @@ public class MovieUserService {
             case "password":
             case "email":
                 return str.length() <= 255;
-            case "role":
-                try {
-                    UserEntity.Role.valueOf(str);
-                    return true;
-                } catch (IllegalArgumentException e) {
-                    return false;
-                }
+//            case "role":
+//                try {
+//                    UserEntity.Role.valueOf(str);
+//                    return true;
+//                } catch (IllegalArgumentException e) {
+//                    return false;
+//                }
             default:
                 return false;
         }

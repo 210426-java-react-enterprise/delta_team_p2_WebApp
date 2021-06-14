@@ -14,6 +14,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
+    UserEntity findByUserId(Integer userId);
+
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
 
     @Query("select case when count(u) > 0 then true else false end from UserEntity u where u.email = :email")
@@ -22,7 +24,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query("select case when count(u) > 0 then true else false end from UserEntity u where u.username = :username")
     boolean isUsernameAvailable(String username);
 
-    @Query(nativeQuery = true, value = "SELECT u.user_id, u.email, u.first_name, u.password, u.role, u.user_bio, u.username, u.last_name FROM follows_list fl INNER JOIN users u ON (fl.fk_following_user_id = u.user_id) WHERE fl.fk_follower_user_id = ?1")
+    @Query(nativeQuery = true, value = "SELECT u.* FROM follows_list fl INNER JOIN users u ON (fl.fk_following_user_id = u.user_id) WHERE fl.fk_follower_user_id = ?1")
     public List<UserEntity> getFollowerDetail(Integer userId);
+
+
 
 }

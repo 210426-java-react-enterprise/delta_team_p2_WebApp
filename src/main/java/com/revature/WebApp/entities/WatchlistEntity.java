@@ -24,4 +24,36 @@ public class WatchlistEntity {
     @ManyToOne(targetEntity = MovieDetailsEntity.class, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_movie_id", nullable = false)
     private MovieDetailsEntity movieId;
+
+    public WatchlistEntity() {
+    }
+
+    public WatchlistEntity(UserEntity userId, MovieDetailsEntity movieId) {
+        this.userId = userId;
+        this.movieId = movieId;
+    }
+
+    public Integer getWatchlistId() {
+        return watchlistId;
+    }
+
+    public void setWatchlistId(Integer watchlistId) {
+        this.watchlistId = watchlistId;
+    }
+
+    public UserEntity getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UserEntity userId) {
+        this.userId = userId;
+    }
+
+    public MovieDetailsEntity getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(MovieDetailsEntity movieId) {
+        this.movieId = movieId;
+    }
 }

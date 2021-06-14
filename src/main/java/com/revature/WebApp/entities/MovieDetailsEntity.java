@@ -99,6 +99,8 @@ public class MovieDetailsEntity {
 //        Year = year;
 //    }
 
+
+
     public Integer getYear() {
         return Year;
     }
