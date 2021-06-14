@@ -25,11 +25,11 @@ public class MovieUserService {
 
         isUserValid(newMovieUser);
 
-        if (isUsernameAvailable(newMovieUser.getUsername())) {
+        if (isUsernameTaken(newMovieUser.getUsername())) {
             throw new ResourcePersistenceException("Provided username is already taken!");
         }
 
-        if (isEmailAvailable(newMovieUser.getEmail())) {
+        if (isEmailTaken(newMovieUser.getEmail())) {
             throw new ResourcePersistenceException("Provided email is already taken!");
         }
 
@@ -61,7 +61,7 @@ public class MovieUserService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public boolean isEmailAvailable(String email) {
+    public boolean isEmailTaken(String email) {
 
         if (!isValid(email, "email"))
             throw new InvalidRequestException("Invalid email value provided!");
@@ -76,7 +76,7 @@ public class MovieUserService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public boolean isUsernameAvailable(String username) {
+    public boolean isUsernameTaken(String username) {
 
         if (!isValid(username, "username"))
             throw new InvalidRequestException("Invalid username value provided!");

@@ -3,6 +3,7 @@ package com.revature.WebApp.services;
 import com.revature.WebApp.entities.UserEntity;
 import com.revature.WebApp.exceptions.DataSourceException;
 import com.revature.WebApp.exceptions.InvalidRequestException;
+import com.revature.WebApp.exceptions.ResourcePersistenceException;
 import com.revature.WebApp.repositories.UserRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -57,6 +58,25 @@ public class MovieUserServiceTests {
         verify(mockUserRepository, times(1)).save(any());
     }
 
+    @Test (expected = ResourcePersistenceException.class)
+    public void testRegisterWithDuplicateUser() {
+
+        //Arrange
+        UserEntity testUser = new UserEntity();
+        testUser.setEmail(email);
+        testUser.setUsername(un);
+        testUser.setPassword(pw);
+        testUser.setFirstName(fn);
+        testUser.setLastName(ln);
+        mockUserEntity = spy(testUser);
+        when(mockUserRepository.isUsernameAvailable(un)).thenReturn(true);
+
+        //Act
+        sut.register(mockUserEntity);
+
+        //Assert
+    }
+    
     @Test
     public void testIsUserValidWithValid() {
 
@@ -191,7 +211,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isEmailAvailable(email)).thenReturn(true);
 
         //Act
-        testBoolean = sut.isEmailAvailable(email);
+        testBoolean = sut.isEmailTaken(email);
 
         //Assert
         Assert.assertTrue(testBoolean);
@@ -205,7 +225,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isEmailAvailable(email)).thenReturn(false);
 
         //Act
-        testBoolean = sut.isEmailAvailable(email);
+        testBoolean = sut.isEmailTaken(email);
 
         //Assert
         Assert.assertFalse(testBoolean);
@@ -218,7 +238,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isEmailAvailable(email)).thenThrow(DataSourceException.class);
 
         //Act
-        sut.isEmailAvailable(email);
+        sut.isEmailTaken(email);
 
         //Assert
     }
@@ -230,7 +250,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isEmailAvailable("")).thenThrow(DataSourceException.class);
 
         //Act
-        sut.isEmailAvailable("");
+        sut.isEmailTaken("");
 
         //Assert
     }
@@ -243,7 +263,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isUsernameAvailable(un)).thenReturn(true);
 
         //Act
-        testBoolean = sut.isUsernameAvailable(un);
+        testBoolean = sut.isUsernameTaken(un);
 
         //Assert
         Assert.assertTrue(testBoolean);
@@ -257,7 +277,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isUsernameAvailable(un)).thenReturn(false);
 
         //Act
-        testBoolean = sut.isUsernameAvailable(un);
+        testBoolean = sut.isUsernameTaken(un);
 
         //Assert
         Assert.assertFalse(testBoolean);
@@ -270,7 +290,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isUsernameAvailable(un)).thenThrow(DataSourceException.class);
 
         //Act
-        sut.isUsernameAvailable(un);
+        sut.isUsernameTaken(un);
 
         //Assert
     }
@@ -282,7 +302,7 @@ public class MovieUserServiceTests {
         when(mockUserRepository.isUsernameAvailable("")).thenThrow(DataSourceException.class);
 
         //Act
-        sut.isUsernameAvailable("");
+        sut.isUsernameTaken("");
 
         //Assert
     }
