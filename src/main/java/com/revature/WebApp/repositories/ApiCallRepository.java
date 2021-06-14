@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
+/**
+ * Repository interface for CRUD access to the api_calls table
+ */
 @Repository
 public interface ApiCallRepository extends JpaRepository<APICallsEntity, Integer> {
 

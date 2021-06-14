@@ -2,6 +2,9 @@ package com.revature.WebApp.DTO;
 
 import com.revature.WebApp.entities.MovieDetailsEntity;
 
+/**
+ * This DTO contains details about a movie returned from IMDb, OMDb, or our own database.
+ */
 public class MovieDetailsDTO {
     private String imdbId;
     private String title;
@@ -28,6 +31,10 @@ public class MovieDetailsDTO {
     private String website;
 
     public MovieDetailsDTO() {
+    }
+
+    public MovieDetailsDTO(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public MovieDetailsDTO(OMDbSearchResultsDTO searchResults) {

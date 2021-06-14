@@ -1,19 +1,32 @@
 package com.revature.WebApp.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
-//TODO Change this to a bean and autowire it in as needed.
+/**
+ * This class populates settings structures and builds data source for spring boot application.
+ * If local /resources/application.properties file is located, settings are loaded from there.
+ * Otherwise settings are loaded from environmental variables.
+ */
+
+@Component
 public class AppProperties {
-    private static String appPropsFilePath;
-    private static AppProperties appProperties;
+    private String appPropsFilePath;
+    private Properties appProperties;
+    private boolean appPropertiesFileExists;
+    private static AppProperties appPropsRef;
 
     //data source
     private DataSource dataSource;
+
 
     //Server Configs
     private String serverPort;
@@ -22,89 +35,86 @@ public class AppProperties {
     //API Configs
     private String rapidAPIKey;
     private String omdbAPIKey;
+    private String imdbAPIKey;
 
-    public static AppProperties getAppProperties() {
-        if(appProperties == null) {
-            appPropsFilePath = "src/main/resources/application.properties";
-            appProperties = new AppProperties(appPropsFilePath);
-        }
-        return appProperties;
-    }
 
-    public static AppProperties getAppProperties(String filePath) {
-        if(appProperties == null) {
-            appPropsFilePath = filePath;
-            appProperties = new AppProperties(appPropsFilePath);
-        }
-        return appProperties;
-    }
+    //settings map
+    private Map<String, Object> settings;
 
-    private AppProperties(String filePath) {
-        String dataSourceURL = System.getenv("SPRING_DATASOURCE_URL");
-        String dataSourceUsername = System.getenv("SPRING_DATASOURCE_USERNAME");
-        String dataSourcePassword = System.getenv("SPRING_DATASOURCE_PASSWORD");
-        String dataSourceDriver = System.getenv("SPRING_DATASOURCE_DRIVER");
-
-        serverPort = System.getenv("SPRING_SERVER_PORT");
-        rapidAPIKey = System.getenv("RAPIDAPI_KEY");
-        h2consoleEnabled = System.getenv("SPRING_H2_CONSOLE_ENABLED");
-        omdbAPIKey = System.getenv("OMDB_API_KEY");
-
+    @Autowired
+    public AppProperties() {
+        settings = new HashMap<>();
+        appPropsFilePath = "src/main/resources/application.properties";
         File checkFile = new File(appPropsFilePath);
-        if(checkFile.exists()) {
+        if (checkFile.exists()) {
+            appPropertiesFileExists = true;
             try (FileReader propFile = new FileReader(appPropsFilePath)) {
-                Properties appProperties = new Properties();
+                appProperties = new Properties();
                 appProperties.load(propFile);
-
-                dataSourceURL = appProperties.getProperty("spring.datasource.url");
-                dataSourceUsername = appProperties.getProperty("spring.datasource.username");
-                dataSourcePassword = appProperties.getProperty("spring.datasource.password");
-                dataSourceDriver = appProperties.getProperty("spring.datasource.driver");
-
-                serverPort = appProperties.getProperty("server.port");
-                rapidAPIKey = appProperties.getProperty("rapidapi.key");
-                h2consoleEnabled = appProperties.getProperty("spring.h2.console.enabled");
-                omdbAPIKey = appProperties.getProperty("omdbapi.key");
-
             } catch (Exception e) {
-                //TODO - change this
                 e.printStackTrace();
+                //TODO: Change this later
             }
         }
 
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            //TODO - change this
-//            e.printStackTrace();
-//        }
+        //sSet up datasource
+        dataSource = buildDataSource(
+                getProperty("spring.datasource.url"),
+                getProperty("spring.datasource.username"),
+                getProperty("spring.datasource.password"),
+                getProperty("spring.datasource.driver")
+        );
+
+        //set up server
+        settings.put("server.port", getProperty("server.port"));
+        settings.put("spring.h2.console.enabled", getProperty("spring.h2.console.enabled"));
+
+        //set up external APIs
+        settings.put("rapidapi.key", getProperty("rapidapi.key"));
+        settings.put("omdbapi.key", getProperty("omdbapi.key"));
+        settings.put("imdbapi.key", getProperty("imdbapi.key"));
+    }
+
+    public static AppProperties getAppProperties() {
+        if(appPropsRef == null) {
+            appPropsRef = new AppProperties();
+        }
+        return appPropsRef;
+    }
 
 
+    private DataSource buildDataSource(String dataSourceURL, String dataSourceUsername, String dataSourcePassword, String dataSourceDriver) {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url(dataSourceURL);
         dataSourceBuilder.username(dataSourceUsername);
         dataSourceBuilder.password(dataSourcePassword);
         dataSourceBuilder.driverClassName(dataSourceDriver);
-        dataSource = dataSourceBuilder.build();
+        return dataSourceBuilder.build();
+    }
+
+    private String getProperty(String propName) {
+        if(appPropertiesFileExists) {
+            return appProperties.getProperty(propName);
+        }
+        else {
+            return System.getenv(getEnvRepresentation(propName));
+        }
+    }
+
+    private String getEnvRepresentation(String s) {
+        return s.replace(".", "_").toUpperCase();
     }
 
     public DataSource getDataSource() {
         return dataSource;
     }
 
-    public String getServerPort() {
-        return serverPort;
+    public String getSetting(String s) {
+        return (String)settings.get(s);
     }
 
-    public String getRapidAPIKey() {
-        return rapidAPIKey;
+    public Map<String, Object> getSettings() {
+        return settings;
     }
 
-    public String getH2consoleEnabled() {
-        return h2consoleEnabled;
-    }
-
-    public String getOmdbAPIKey() {
-        return omdbAPIKey;
-    }
 }

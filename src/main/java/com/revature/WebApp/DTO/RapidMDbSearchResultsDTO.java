@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.util.List;
 
+/**
+ * DTO for unmarshalling the JSON returned from RapidAPI MDb, contains 0 or more elements as well as info
+ * about the search and results.
+ */
 @JsonIgnoreProperties
 @JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class RapidMDbSearchResultsDTO {

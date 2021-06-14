@@ -1,6 +1,6 @@
-package com.revature.WebApp.repositories;
+package com.revature.WebApp.AllSamples.repositories;
 
-import com.revature.WebApp.entities.PrototypeEntity;
+import com.revature.WebApp.AllSamples.entities.PrototypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

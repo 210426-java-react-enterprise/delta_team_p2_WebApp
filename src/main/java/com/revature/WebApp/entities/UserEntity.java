@@ -1,11 +1,11 @@
 package com.revature.WebApp.entities;
-
-
 import javax.persistence.*;
-
-
 import javax.validation.constraints.*;
 
+
+/**
+ * Entity representing a row in database users table, used to store info including auth info for users.
+ */
 @Entity
 @Table(name="users")
 public class UserEntity {
@@ -23,9 +23,7 @@ public class UserEntity {
     private String password;
 
     @Email
-    //@Pattern(regexp = "^([0-9a-zA-Z.]+@[0-9a-zA-Z]+[.][a-zA-Z]+){1,255}$", message = "need a valid email")
     @Column(nullable = false, unique = true)
-    //@NotBlank(message="email can not be blank")
     private String email;
 
     @Column(name = "first_name", nullable = false)
@@ -36,6 +34,10 @@ public class UserEntity {
 
     @Column(name = "user_bio", nullable = true)
     private String userBio;
+
+    public UserEntity() {
+    }
+
 
     public Integer getUserId() {
         return userId;
@@ -91,6 +93,19 @@ public class UserEntity {
 
     public void setUserBio(String userBio) {
         this.userBio = userBio;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userBio='" + userBio + '\'' +
+                '}';
     }
 
 

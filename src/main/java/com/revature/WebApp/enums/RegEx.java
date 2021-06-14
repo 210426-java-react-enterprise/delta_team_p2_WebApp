@@ -3,6 +3,7 @@ package com.revature.WebApp.enums;
 
 /**
  * Author: Wezley Singleton, Quizzard, 2021
+ * Pattern validating regular expressions.
  */
 public enum RegEx {
 
