@@ -41,15 +41,20 @@ public class ProfileDetailsController {
         return followers;
     }
 
-    @GetMapping(value = "/followerdetail/{userId}", produces = "application/json")
-    public String allfollowerdetail(@PathVariable String userId, HttpServletResponse response) throws JsonProcessingException {
-        //System.out.println("Follower detail userId: " + userId);
+    @GetMapping(value = "/followerdetail", produces = "application/json")
+    public String allfollowerdetail(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+        tokenParser.checkToken(request);
+        if(request.getAttribute("principal") == null) {
+            response.setStatus(401);
+            return "Not Authorized.";
+        }
+        Integer userId = ((Principal)request.getAttribute("principal")).getId();
         List<FollowerDetailDTO> followers = followerService.getAllFollowerDetail(userId);
         response.setStatus(201);
 
         return objectMapper.writeValueAsString(followers);
-
     }
+
 
     @PutMapping(value = "/movieScore",consumes = "application/json", produces = "application/json")
     public void scoreMovie(@RequestBody MovieReviewDTO reviewDTO,

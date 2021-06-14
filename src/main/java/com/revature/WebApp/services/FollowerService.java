@@ -41,8 +41,8 @@ public class FollowerService {
 //        return followers;
 //    }
 
-    public List<FollowerDetailDTO> getAllFollowerDetail(String userId){
-        List<UserEntity> searchResults = userRepo.getFollowerDetail(Integer.parseInt(userId));
+    public List<FollowerDetailDTO> getAllFollowerDetail(Integer userId){
+        List<UserEntity> searchResults = userRepo.getFollowerDetail(userId);
         System.out.println("Debug: " + searchResults.size());
         List<FollowerDetailDTO> followers = new ArrayList<>();
         for (UserEntity user: searchResults) {
