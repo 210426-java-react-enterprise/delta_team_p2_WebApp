@@ -43,6 +43,7 @@ public class ProfileService {
 
     public boolean addToHistory(Integer userId, String imdbId) throws ResourceNotFoundException {
         if (watchListRepo.checkIfMovieAlreadyExists(imdbId, userId) > 0) {
+            System.out.println("Movie does already exist? " + imdbId + ", " + watchListRepo.checkIfMovieAlreadyExists(imdbId, userId));
             return true;
         }
         System.out.println("userId: " + userId + ", imdbId: " + imdbId);
@@ -50,8 +51,8 @@ public class ProfileService {
         UserEntity user = userRepo.findByUserId(userId);
         MovieDetailsEntity movie = movieRepo.findByImdbId(imdbId);
 
-        System.out.println(user.toString());
-        System.out.println(movie.toString());
+        System.out.println("\n\n\n USER TOSTRING: " + user.toString());
+        System.out.println("MOVIE TOSTRING: " + movie.toString());
 
         WatchHistoryEntity entity = new WatchHistoryEntity(user, movie);
 
@@ -63,9 +64,6 @@ public class ProfileService {
 
 
     public boolean addToWatchList(Integer userId, String imdbId) throws ResourceNotFoundException {
-        if (watchListRepo.checkIfMovieAlreadyExists(imdbId, userId) > 0) {
-            return true;
-        }
         System.out.println("userId: " + userId + ", imdbId: " + imdbId);
 
         UserEntity user = userRepo.findByUserId(userId);
