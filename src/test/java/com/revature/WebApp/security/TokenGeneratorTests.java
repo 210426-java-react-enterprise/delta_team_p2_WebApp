@@ -30,7 +30,7 @@ public class TokenGeneratorTests {
         String prefix = "Authorization";
         String s;
         Key key = new SecretKeySpec("hello".getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.RS512.getJcaName());
-        when(spyPrincipal.getRole()).thenReturn(UserEntity.Role.BASIC_USER);
+        //when(spyPrincipal.getRole()).thenReturn(UserEntity.Role.BASIC_USER);
         when(spyJwt.getSigningKey()).thenReturn(key);
         when(spyJwt.getPrefix()).thenReturn(prefix);
 

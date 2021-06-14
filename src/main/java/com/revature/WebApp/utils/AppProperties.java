@@ -27,6 +27,17 @@ public class AppProperties {
     //data source
     private DataSource dataSource;
 
+
+    //Server Configs
+    private String serverPort;
+    private String h2consoleEnabled;
+
+    //API Configs
+    private String rapidAPIKey;
+    private String omdbAPIKey;
+    private String imdbAPIKey;
+
+
     //settings map
     private Map<String, Object> settings;
 
@@ -61,6 +72,7 @@ public class AppProperties {
         //set up external APIs
         settings.put("rapidapi.key", getProperty("rapidapi.key"));
         settings.put("omdbapi.key", getProperty("omdbapi.key"));
+        settings.put("imdbapi.key", getProperty("imdbapi.key"));
     }
 
     public static AppProperties getAppProperties() {

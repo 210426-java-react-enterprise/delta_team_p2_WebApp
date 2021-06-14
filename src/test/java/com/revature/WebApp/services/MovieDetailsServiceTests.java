@@ -28,7 +28,7 @@ public class MovieDetailsServiceTests {
         mockOmdbApi = mock(OMDbAPI.class);
         mockMovieDetailsEntity = mock(MovieDetailsEntity.class);
         mockOmdbSearchResultsDto = mock(OMDbSearchResultsDTO.class);
-        sut = new MovieDetailsService(mockMovieRepo, mockOmdbApi);
+        sut = new MovieDetailsService(mockMovieRepo, /*history here*/mockOmdbApi);
     }
 
     @After

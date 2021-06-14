@@ -1,10 +1,5 @@
 package com.revature.WebApp.entities;
-
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import javax.persistence.*;
-
-
 import javax.validation.constraints.*;
 
 
@@ -28,9 +23,7 @@ public class UserEntity {
     private String password;
 
     @Email
-    //@Pattern(regexp = "^([0-9a-zA-Z.]+@[0-9a-zA-Z]+[.][a-zA-Z]+){1,255}$", message = "need a valid email")
     @Column(nullable = false, unique = true)
-    //@NotBlank(message="email can not be blank")
     private String email;
 
     @Column(name = "first_name", nullable = false)
@@ -42,12 +35,8 @@ public class UserEntity {
     @Column(name = "user_bio", nullable = true)
     private String userBio;
 
-    @Column(nullable = false)
-    private Role role;
-//
-//    public UserEntity(/*MovieUser register*/) {
-//        super();
-//    }
+    public UserEntity() {
+    }
 
 
     public Integer getUserId() {
@@ -106,17 +95,9 @@ public class UserEntity {
         this.userBio = userBio;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
-        return "MovieUser{" +
+        return "UserEntity{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -124,25 +105,8 @@ public class UserEntity {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userBio='" + userBio + '\'' +
-                ", role=" + role +
                 '}';
     }
 
-    public enum Role {
-        ADMIN("Admin"), DEV("Dev"), BASIC_USER("Basic User"),
-        PREMIUM_USER("Premium User"), LOCKED("Locked");
-
-        private String name;
-
-        Role(String name) {
-            this.name = name;
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return name;
-        }
-    }
 
 }
