@@ -56,9 +56,9 @@ public class ProfileDetailsController {
     }
 
 
-    @PutMapping(value = "/movieScore",consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/movieScore", consumes = "application/json")
     public void scoreMovie(@RequestBody MovieReviewDTO reviewDTO,
-                             HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+                           HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
         tokenParser.checkToken(request);
         if(request.getAttribute("principal") == null) {
             response.setStatus(401);
@@ -66,8 +66,11 @@ public class ProfileDetailsController {
         }
         Integer userId = ((Principal)request.getAttribute("principal")).getId();
 
+        profileService.addToHistory(userId, reviewDTO.getImdbId());
+
         WatchHistoryEntity historyEntity = profileService.getHistoryEntity(userId, reviewDTO);
 
         response.setStatus(200);
     }
+
 }

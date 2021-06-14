@@ -38,6 +38,7 @@ public class UserEntity {
     public UserEntity() {
     }
 
+
     public Integer getUserId() {
         return userId;
     }

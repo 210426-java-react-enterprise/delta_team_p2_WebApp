@@ -34,6 +34,11 @@ public class WatchHistoryEntity {
     public WatchHistoryEntity() {
     }
 
+    public WatchHistoryEntity(UserEntity userId, MovieDetailsEntity movieId) {
+        this.userId = userId;
+        this.movieId = movieId;
+    }
+
     public Integer getHistoryId() {
         return historyId;
     }

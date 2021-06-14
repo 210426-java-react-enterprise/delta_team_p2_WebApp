@@ -47,7 +47,7 @@ public class RapidMDbAPI {
      */
     public RapidMDbSearchResultsDTO searchByTitle(String title) throws IOException {
 
-        String searchString = URL + "?s=" + title + "&page=1&r=json";
+        String searchString = URL + "?type=movie&s=" + title + "&page=1&r=json";
         OkHttpClient client = new OkHttpClient();
 
         APICallsEntity apiCall = new APICallsEntity("RapidMDb", searchString);

@@ -38,8 +38,8 @@ public class IMDbAPI {
     /**
      *
      */
-    public IMDbSearchResultDTO searchByPopularity(String year) throws IOException {
-        String searchString = URL + "?type=get-popular-movies&page=1&year=" + year;
+    public IMDbSearchResultDTO searchByPopularity() throws IOException {
+        String searchString = URL + "?type=get-popular-movies&page=1&year=";
         OkHttpClient client = new OkHttpClient();
         System.out.println(searchString);
         APICallsEntity apiCall = new APICallsEntity("IMDb", searchString);

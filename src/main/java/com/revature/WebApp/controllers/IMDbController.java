@@ -24,9 +24,9 @@ public class IMDbController {
     }
     
     
-    @GetMapping(value="/imdbSearch/{year}", produces = "application/json")
-    public String popularitySearch(@PathVariable String year, HttpServletResponse response) throws IOException{
-        IMDbSearchResultDTO searchResultDTO = apiAccess.searchByPopularity(year);
+    @GetMapping(value="/imdbSearch", produces = "application/json")
+    public String popularitySearch(HttpServletResponse response) throws IOException{
+        IMDbSearchResultDTO searchResultDTO = apiAccess.searchByPopularity();
         
         if(searchResultDTO==null){
             response.setStatus(503);
