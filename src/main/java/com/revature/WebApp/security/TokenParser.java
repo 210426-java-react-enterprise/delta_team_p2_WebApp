@@ -4,9 +4,12 @@ import com.revature.WebApp.DTO.Principal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Null;
 
+@Component
 public class TokenParser {
 
     private JwtConfig jwtConfig;
@@ -22,7 +25,7 @@ public class TokenParser {
      *
      * @param request
      */
-    public void checkToken(HttpServletRequest request) {
+    public void checkToken(HttpServletRequest request) throws NullPointerException {
         String header = request.getHeader(jwtConfig.getHeader());
 
         if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
@@ -32,19 +35,15 @@ public class TokenParser {
 
         String token = header.replaceAll(jwtConfig.getPrefix(), "");
 
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(jwtConfig.getSigningKey())
-                    .parseClaimsJws(token)
-                    .getBody();
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtConfig.getSigningKey())
+                .parseClaimsJws(token)
+                .getBody();
 
-            Principal principal = new Principal(claims);
+        Principal principal = new Principal(claims);
 
-            request.setAttribute("principal", principal);
+        request.setAttribute("principal", principal);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            //TODO - replace with aspect logging implementation
-        }
+
     }
 }

@@ -10,7 +10,7 @@ public class Principal {
 
     private int id;
     private String username;
-    private UserEntity.Role role;
+    //private UserEntity.Role role;
 
     public Principal() {
         super();
@@ -19,13 +19,13 @@ public class Principal {
     public Principal(Claims jwtClaims) {
         this.id = Integer.parseInt(jwtClaims.getId());
         this.username = jwtClaims.getSubject();
-        this.role = UserEntity.Role.valueOf(jwtClaims.get("role", String.class).toUpperCase());
+        //this.role = UserEntity.Role.valueOf(jwtClaims.get("role", String.class).toUpperCase());
     }
 
     public Principal(UserEntity user) {
         this.id = user.getUserId();
         this.username = user.getUsername();
-        this.role = user.getRole();
+        //this.role = user.getRole();
     }
 
     public int getId() {
@@ -44,12 +44,12 @@ public class Principal {
         this.username = username;
     }
 
-    public UserEntity.Role getRole() {
-        return role;
-    }
-
-    public void setRole(UserEntity.Role role) {
-        this.role = role;
-    }
+//    //public UserEntity.Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(UserEntity.Role role) {
+//        this.role = role;
+//    }
 
 }

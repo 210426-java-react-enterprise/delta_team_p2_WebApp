@@ -4,14 +4,18 @@ package com.revature.WebApp.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.WebApp.DTO.FollowerDetailDTO;
+import com.revature.WebApp.DTO.MovieReviewDTO;
+import com.revature.WebApp.DTO.Principal;
 import com.revature.WebApp.entities.FollowsListEntity;
+import com.revature.WebApp.entities.WatchHistoryEntity;
+import com.revature.WebApp.security.TokenParser;
 import com.revature.WebApp.services.FollowerService;
+import com.revature.WebApp.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -19,11 +23,15 @@ import java.util.List;
 public class ProfileDetailsController {
 
     private final FollowerService followerService;
+    private final ProfileService profileService;
+    private final TokenParser tokenParser;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public ProfileDetailsController(FollowerService followerService){
+    public ProfileDetailsController(FollowerService followerService, ProfileService profileService, TokenParser tokenParser){
         this.followerService = followerService;
+        this.profileService = profileService;
+        this.tokenParser = tokenParser;
         objectMapper = new ObjectMapper();
     }
 
@@ -35,7 +43,7 @@ public class ProfileDetailsController {
 
     @GetMapping(value = "/followerdetail/{userId}", produces = "application/json")
     public String allfollowerdetail(@PathVariable String userId, HttpServletResponse response) throws JsonProcessingException {
-        System.out.println("Follower detail userId: " + userId);
+        //System.out.println("Follower detail userId: " + userId);
         List<FollowerDetailDTO> followers = followerService.getAllFollowerDetail(userId);
         response.setStatus(201);
 
@@ -43,4 +51,18 @@ public class ProfileDetailsController {
 
     }
 
+    @PutMapping(value = "/movieScore",consumes = "application/json", produces = "application/json")
+    public void scoreMovie(@RequestBody MovieReviewDTO reviewDTO,
+                             HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
+        tokenParser.checkToken(request);
+        if(request.getAttribute("principal") == null) {
+            response.setStatus(401);
+            return;
+        }
+        Integer userId = ((Principal)request.getAttribute("principal")).getId();
+
+        WatchHistoryEntity historyEntity = profileService.getHistoryEntity(userId, reviewDTO);
+
+        response.setStatus(200);
+    }
 }

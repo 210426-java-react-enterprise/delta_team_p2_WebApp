@@ -33,6 +33,10 @@ public class MovieDetailsDTO {
     public MovieDetailsDTO() {
     }
 
+    public MovieDetailsDTO(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
     public MovieDetailsDTO(OMDbSearchResultsDTO searchResults) {
         this.imdbId = searchResults.getImdbID();
         this.title = searchResults.getTitle();
