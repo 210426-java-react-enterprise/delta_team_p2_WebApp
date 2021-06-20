@@ -16,7 +16,6 @@ import java.util.Properties;
  * If local /resources/application.properties file is located, settings are loaded from there.
  * Otherwise settings are loaded from environmental variables.
  */
-
 @Component
 public class AppProperties {
     private String appPropsFilePath;

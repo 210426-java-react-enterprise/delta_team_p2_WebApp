@@ -29,17 +29,6 @@ public class FollowerService {
         return followRepo.findAll();
     }
 
-//    public List<FollowerDetailDTO> getAllFollowerDetail(String userId){
-//        List<UserEntity> searchResults = followRepo.getFollowerDetail(Integer.parseInt(userId));
-//        System.out.println("Debug: " + searchResults.size());
-//        List<FollowerDetailDTO> followers = new ArrayList<>();
-//        for (UserEntity user: searchResults) {
-//            System.out.println(user.getUsername());
-//            followers.add(new FollowerDetailDTO(user));
-//        }
-//
-//        return followers;
-//    }
 
     public List<FollowerDetailDTO> getAllFollowerDetail(Integer userId){
         List<UserEntity> searchResults = userRepo.getFollowerDetail(userId);

@@ -10,7 +10,6 @@ import com.revature.WebApp.repositories.MovieDetailsRepository;
 import com.revature.WebApp.repositories.UserRepository;
 import com.revature.WebApp.repositories.WatchHistoryRepository;
 import com.revature.WebApp.repositories.WatchlistRepository;
-import com.revature.WebApp.security.TokenParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

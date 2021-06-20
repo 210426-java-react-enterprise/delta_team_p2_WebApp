@@ -44,12 +44,4 @@ public class Principal {
         this.username = username;
     }
 
-//    //public UserEntity.Role getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(UserEntity.Role role) {
-//        this.role = role;
-//    }
-
 }

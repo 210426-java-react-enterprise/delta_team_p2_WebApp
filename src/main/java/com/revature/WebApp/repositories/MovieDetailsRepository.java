@@ -1,7 +1,6 @@
 package com.revature.WebApp.repositories;
 
 import com.revature.WebApp.entities.MovieDetailsEntity;
-import com.revature.WebApp.entities.WatchHistoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
